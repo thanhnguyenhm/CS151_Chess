@@ -1,7 +1,7 @@
 package sjsu;
 
 /**
- * TODO add description here
+ * Update a piece location
  */
 public class Move {
     ChessPiece piece;

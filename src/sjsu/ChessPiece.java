@@ -37,16 +37,24 @@ public class ChessPiece {
     }
 
     /**
-     * TODO it should return boolean right?
+     * check if the piece is captured
+     * @return true if it is captured
      */
-    void isCaptured() {
+    boolean isCaptured() {
+        return true;
+    }
+
+    /**
+     * select a piece and update its location
+     */
+    void movePiece() {
 
     }
 
     /**
-     * TODO add description here
+     * A player choose to select a piece before moving
      */
-    void movePiece() {
+    void selectPiece() {
 
     }
 }

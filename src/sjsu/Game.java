@@ -7,7 +7,6 @@ package sjsu;
 public class Game {
 
     public static void main(String[] args) {
-        int playerTurn; //TODO what is the variable type here
         Player players;
         boolean isOver;
     }
@@ -20,7 +19,7 @@ public class Game {
     }
 
     /**
-     * TODO Add description here
+     * Game over when checkmate or stalemate
      */
     void gameOver() {
 

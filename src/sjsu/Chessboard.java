@@ -15,14 +15,14 @@ public class Chessboard {
     }
 
     /**
-     * TODO Add description here
+     * Create a 8x8 chess board with 32 pieces in the correct location
      */
     void createBoard() {
 
     }
 
     /**
-     * TODO Add description here
+     * update the chess board with current position of all pieces
      */
     void refreshBoard() {
 
