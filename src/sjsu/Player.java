@@ -1,21 +1,21 @@
 package sjsu;
 
 /**
- * A player of the Game
+ * A user who is playing the game
  */
 public class Player {
     Color color; // assign color for players
 
     /**
-     * Constructor for Player
-     * @param color
+     * construct a player
+     * @param color: player's color: black or white
      */
     public Player(Color color) {
         this.color = color;
     }
 
     /**
-     * Determine play turn
+     * TODO Add description here
      */
     void playTurn() {
         //code from here

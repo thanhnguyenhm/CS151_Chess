@@ -2,28 +2,25 @@ package sjsu;
 
 /**
  * This program is to create a 2-player Chess game
- * Project for SJSU CS151
+ * Team project for SJSU CS151
  */
 public class Game {
 
     public static void main(String[] args) {
-	// declare variables
-        int playerTurn;
+        int playerTurn; //TODO what is the variable type here
         Player players;
         boolean isOver;
-
-        System.out.println("Hello World!");
     }
 
     /**
-     * A method to initiate a chess game
+     * Initiate a chess game
      */
     void initiate() {
 
     }
 
     /**
-     * Game Over
+     * TODO Add description here
      */
     void gameOver() {
 

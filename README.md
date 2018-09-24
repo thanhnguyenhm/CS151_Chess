@@ -6,6 +6,6 @@ The purpose of this program is to create a Java-based interactive chess game tha
 
 Team members include:
 
-1.
+1. 
 2. Lara Medakovic Kidd
-3.
+3. Thanh Nguyen

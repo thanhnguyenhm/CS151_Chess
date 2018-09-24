@@ -1,7 +1,7 @@
 package sjsu;
 
 /**
- * A cell from a chessboard
+ * A cell from a chess board
  */
 public class Cell {
 
