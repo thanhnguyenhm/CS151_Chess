@@ -1,6 +1,9 @@
 package sjsu;
 
 public class Rook extends ChessPiece{
+	
+	boolean hasMoved;
+	
     /**
      * default constructor
      *
