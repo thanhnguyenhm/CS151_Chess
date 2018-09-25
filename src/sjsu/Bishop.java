@@ -1,5 +1,8 @@
 package sjsu;
 
+/**
+ * Bishop piece implementation
+ */
 public class Bishop extends ChessPiece{
     /**
      * construct a Bishop piece

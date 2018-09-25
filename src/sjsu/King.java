@@ -1,5 +1,8 @@
 package sjsu;
 
+/**
+ * King piece implementation
+ */
 public class King extends ChessPiece{
 
     boolean underCheck;

@@ -1,5 +1,8 @@
 package sjsu;
 
+/**
+ * Rook piece implementation
+ */
 public class Rook extends ChessPiece{
 	
 	boolean hasMoved;

@@ -1,5 +1,8 @@
 package sjsu;
 
+/**
+ * Pawn piece implementation
+ */
 public class Pawn extends ChessPiece{
 
     boolean firstMove;

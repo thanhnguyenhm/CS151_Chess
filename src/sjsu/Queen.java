@@ -1,5 +1,8 @@
 package sjsu;
 
+/**
+ * Queen piece implementation
+ */
 public class Queen extends ChessPiece{
     /**
      * default constructor

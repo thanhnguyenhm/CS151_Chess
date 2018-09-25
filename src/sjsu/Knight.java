@@ -1,5 +1,8 @@
 package sjsu;
 
+/**
+ * Knight piece implementation
+ */
 public class Knight extends ChessPiece{
     /**
      * default constructor
