@@ -1,9 +1,11 @@
 package sjsu;
 
+//TODO Remove all methods: responsibility of Model?
+
 /**
- * a generic class that comprise 6 types of pieces
+ * An abstract class that comprises 6 types of chess pieces
  */
-public class ChessPiece {
+abstract class ChessPiece {
 
     Color color;
     Cell location;
@@ -43,18 +45,18 @@ public class ChessPiece {
     boolean isCaptured() {
         return true;
     }
-
+    
     /**
-     * select a piece and update its location
-     */
-    void movePiece() {
-
-    }
-
-    /**
-     * A player choose to select a piece before moving
+     * A player selects a piece to try and move
      */
     void selectPiece() {
+
+    }    
+
+    /**
+     * Move a piece and update its location
+     */
+    void movePiece() {
 
     }
 }

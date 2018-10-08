@@ -8,8 +8,6 @@ import javax.swing.*;
 public class View {
     //Some GUI variables and methods using Java Swing
     private JFrame frame;
-    private JLabel label;
-    private JButton button;
 
     /**
      * update status of a chess board
