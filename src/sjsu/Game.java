@@ -10,16 +10,39 @@ public class Game {
         Player players;
         boolean isOver;
     }
+    
+    /**
+     * Initiate the Model
+     */
+    void initiateModel() {
 
+    }    
+    
+    /**
+     * Initiate the View
+     */
+    void initiateView() {
+
+    }    
+
+    /**
+     * Initiate the Controller
+     */
+    void initiateController() {
+
+    }    
+    
+    // TODO Remove duplicate method: responsibility of Model?
     /**
      * Initiate a chess game
      */
-    void initiate() {
+    void initiateGame() {
 
     }
 
+    // TODO Remove duplicate method: responsibility of Model?
     /**
-     * Game over when checkmate or stalemate
+     * Game over when checkmate or stalemate return true
      */
     void gameOver() {
 
