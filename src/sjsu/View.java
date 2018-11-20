@@ -12,12 +12,13 @@ import java.awt.event.MouseMotionListener;
 public class View extends JFrame implements MouseListener, MouseMotionListener {
     JLayeredPane layer;
     JPanel board;
-    JLabel pieces;
+    JPanel panel;
+    JLabel piece;
     Dimension boardSize = new Dimension(600,600);
-    int xAdjustment;
-    int yAdjustment;
+    int xAdjustment; // Change name to dx?
+    int yAdjustment; // Change name to dy?
 
-    // Constructor
+    // View constructor
     View() {
         // add components to LayeredPane object
         layer = new JLayeredPane();
@@ -45,11 +46,88 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
             }
         }
 
-        // add chess pieces to LayeredPane
-        // Bishop by Demograph™ from the Noun Project
-        JLabel piece = new JLabel(new ImageIcon("King.png"));
-        JPanel panel = (JPanel)board.getComponent(0);
+        // Initialize placement of chess piece on board
+        
+        // Black pawns
+        for (int i = 8; i < 16; i++)
+        {
+            piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-pawn.png")));
+            panel = (JPanel)board.getComponent(i);
+            panel.add(piece);    
+        }
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-rook.png")));
+        panel = (JPanel)board.getComponent(0);
         panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-knight.png")));
+        panel = (JPanel)board.getComponent(1);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-knight.png")));
+        panel = (JPanel)board.getComponent(6);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-bishop.png")));
+        panel = (JPanel)board.getComponent(2);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-bishop.png")));
+        panel = (JPanel)board.getComponent(5);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-queen.png")));
+        panel = (JPanel)board.getComponent(3);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-king.png")));
+        panel = (JPanel)board.getComponent(4);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-rook.png")));
+        panel = (JPanel)board.getComponent(7);
+        panel.add(piece);
+            
+        // White pawns
+        for (int i = 48; i < 56; i++)
+        {
+            piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-pawn.png")));
+            panel = (JPanel)board.getComponent(i);
+            panel.add(piece);        
+        }
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-rook.png")));
+        panel = (JPanel)board.getComponent(56);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-knight.png")));
+        panel = (JPanel)board.getComponent(57);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-knight.png")));
+        panel = (JPanel)board.getComponent(62);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-bishop.png")));
+        panel = (JPanel)board.getComponent(58);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-bishop.png")));
+        panel = (JPanel)board.getComponent(61);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-queen.png")));
+        panel = (JPanel)board.getComponent(59);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-king.png")));
+        panel = (JPanel)board.getComponent(60);
+        panel.add(piece);
+        
+        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-rook.png")));
+        panel = (JPanel)board.getComponent(63);
+        panel.add(piece);              
+        
 
         // Setup frame
         JFrame frame = new JFrame();
@@ -81,7 +159,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        pieces = null;
+        piece = null;
         Component c =  board.findComponentAt(e.getX(), e.getY());
 
         if (c instanceof JPanel)
@@ -90,30 +168,30 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         Point parentLocation = c.getParent().getLocation();
         xAdjustment = parentLocation.x - e.getX();
         yAdjustment = parentLocation.y - e.getY();
-        pieces = (JLabel) c;
-        pieces.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-        pieces.setSize(pieces.getWidth(), pieces.getHeight());
-        layer.add(pieces, JLayeredPane.DRAG_LAYER);
+        piece = (JLabel) c;
+        piece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
+        piece.setSize(piece.getWidth(), piece.getHeight());
+        layer.add(piece, JLayeredPane.DRAG_LAYER);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(pieces == null) return;
+        if(piece == null) return;
 
-        pieces.setVisible(false);
+        piece.setVisible(false);
         Component c =  board.findComponentAt(e.getX(), e.getY());
 
         if (c instanceof JLabel){
             Container parent = c.getParent();
             parent.remove(0);
-            parent.add( pieces );
+            parent.add( piece );
         }
         else {
             Container parent = (Container)c;
-            parent.add( pieces );
+            parent.add( piece );
         }
 
-        pieces.setVisible(true);
+        piece.setVisible(true);
     }
 
     @Override
@@ -126,8 +204,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent me) {
-        if (pieces == null) return;
-        pieces.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
+        if (piece == null) return;
+        piece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
     }
 
     @Override
