@@ -11,11 +11,11 @@ public class King extends ChessPiece{
     /**
      * construct a King piece
      *
-     * @param color black or white
+     * @param playerSide black or white
      * @param location location on the chess board
      * @param captured false if the piece is still on the board
      */
-    public King(Color color, Cell location, boolean captured) {
-        super(color, location, captured);
+    public King(PlayerSide playerSide, Cell location, boolean captured) {
+        super(playerSide, location, captured);
     }
 }

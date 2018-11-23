@@ -10,6 +10,7 @@ public class Model {
     Player player;
     Move move;
     ChessPiece chesspiece;
+    boolean isOver;
     
     /**
      * Initiate a chess game

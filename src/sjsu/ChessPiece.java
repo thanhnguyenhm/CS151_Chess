@@ -7,18 +7,18 @@ package sjsu;
  */
 abstract class ChessPiece {
 
-    Color color;
+    PlayerSide playerSide;
     Cell location;
     boolean captured;
 
     /**
      * default constructor
-     * @param color color of a piece
+     * @param playerSide playerSide of a piece
      * @param location location of a piece on chess board
      * @param captured false if the piece is still on the board
      */
-    public ChessPiece(Color color, Cell location, boolean captured) {
-        this.color = color;
+    public ChessPiece(PlayerSide playerSide, Cell location, boolean captured) {
+        this.playerSide = playerSide;
         this.location = location;
         this.captured = captured;
     }
