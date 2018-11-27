@@ -29,7 +29,7 @@ public class Rook extends ChessPiece{
      *
      * @param m a Chess move
      */
-    boolean validMove(Move m) {
+    public boolean validMove(Move m) {
     	
     	// Check that the end cell is empty or an opponent's piece
     	if (m.getBoard().getCell(m.getEnd()).getPiece() != null)

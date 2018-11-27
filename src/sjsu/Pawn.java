@@ -30,7 +30,7 @@ public class Pawn extends ChessPiece{
      *
      * @param m a Chess move
      */
-    boolean validMove(Move m) {
+    public boolean validMove(Move m) {
     	
 		// Special rules
     	if (hasMoved == false) {

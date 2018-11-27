@@ -10,7 +10,7 @@ public class Bishop extends ChessPiece{
     /**
      * construct a Bishop piece
      *
-      * @param side Player's color, black or white
+     * @param side Player's color, black or white
      */
     public Bishop(PlayerSide side) {
         super(side);
@@ -21,11 +21,11 @@ public class Bishop extends ChessPiece{
     }
     
     /**
-     * Implements the strategy for piece's move (Rook)
+     * Implements the strategy for piece's move (Bishop)
      *
      * @param m a Chess move
      */
-boolean validMove(Move m) {
+    public boolean validMove(Move m) {
     	
     	// Check that the end cell is empty or an opponent's piece
     	if (m.getBoard().getCell(m.getEnd()).getPiece() != null)
