@@ -25,6 +25,7 @@ public class Knight extends ChessPiece{
      * Implements the strategy for piece's move (Knight)
      *
      * @param m a Chess move
+     * @return true or false for validMove of chess piece
      */
     public boolean validMove(Move m) {
     	

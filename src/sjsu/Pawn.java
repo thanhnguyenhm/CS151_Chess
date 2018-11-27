@@ -29,6 +29,7 @@ public class Pawn extends ChessPiece{
      * Implements the strategy for piece's move (Pawn)
      *
      * @param m a Chess move
+     * @return true or false for validMove of chess piece
      */
     public boolean validMove(Move m) {
     	

@@ -24,6 +24,7 @@ public class Bishop extends ChessPiece{
      * Implements the strategy for piece's move (Bishop)
      *
      * @param m a Chess move
+     * @return true or false for validMove of chess piece
      */
     public boolean validMove(Move m) {
     	

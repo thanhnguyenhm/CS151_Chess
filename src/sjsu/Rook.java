@@ -28,6 +28,7 @@ public class Rook extends ChessPiece{
      * Implements the strategy for piece's move (Rook)
      *
      * @param m a Chess move
+     * @return true or false for validMove of chess piece
      */
     public boolean validMove(Move m) {
     	
