@@ -111,4 +111,9 @@ public class Chessboard {
 	public Cell getCell(int i) {
 		return cell[i];
 	}
+	
+	public Cell getCell(int x, int y) {
+		int i = 8 * y + x;
+		return cell[i];
+	}
 }

@@ -26,4 +26,8 @@ public class King extends ChessPiece{
          else
         	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-king.png"))));
     }
+
+    public void setHasMoved(boolean hasMoved) {
+		this.hasMoved = hasMoved;
+	}
 }
