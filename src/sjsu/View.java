@@ -66,7 +66,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
     }
-
+    //TODO Refactor so that Message events are added to queue and sent through valves to Controller
     @Override
     public void mousePressed(MouseEvent e) {
         label = null;

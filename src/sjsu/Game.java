@@ -13,8 +13,9 @@ public class Game {
 	private static BlockingQueue<Message> queue = new LinkedBlockingQueue<Message>();
 	private static View view;
 	private static Model model;
-    public static void main(String[] args) {
-        view = new View();
+	
+    public static void main(String[] args) throws Exception {
+        view = new View(); // view = View.init(queue);
         model = new Model();
         Controller game = new Controller(view, model, queue);
         game.mainLoop();
