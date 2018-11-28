@@ -10,9 +10,7 @@ public class Queen extends ChessPiece{
     /**
      * default constructor
      *
-     * @param playerSide black or white
-     * @param location location on the chess board
-     * @param captured false if the piece is still on the board
+     * @param side Player's color, black or white
      */
     public Queen(PlayerSide side) {
     	 super(side);
@@ -20,5 +18,15 @@ public class Queen extends ChessPiece{
          	this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-queen.png"))));
          else
          	this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-queen.png"))));
+    }
+    
+    /**
+     * Implements the strategy for piece's move (Queen)
+     *
+     * @param m a Chess move
+     * @return true or false for validMove of chess piece
+     */
+    public boolean validMove(Move m) {  
+    	return false;
     }
 }

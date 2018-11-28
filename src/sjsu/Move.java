@@ -7,6 +7,10 @@ public class Move {
 	private Chessboard board;
 	private int start;
 	private int end;
+	private int x1;
+	private int x2;
+	private int y1;
+	private int y2;
 
     /**
      *
@@ -18,6 +22,10 @@ public class Move {
         this.board = board;
         this.start = start;
         this.end = end;
+        y1 = start/8;
+		y2 = end/8;
+		x1 = start%8;
+		x2 = end%8;
     }
     
     /**
@@ -30,18 +38,32 @@ public class Move {
             board.getCell(start).setPiece(null);
             if (board.getCell(end).getPiece() instanceof Pawn)
             	((Pawn)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
-            /* TODOs
-            if (board.getCell(start).getPiece() instanceof Rook)
-            	((Rook)board.getCell(start).getPiece()).setHasMoved(true); // type-cast an object
-            if (board.getCell(start).getPiece() instanceof King)
-            	((King)board.getCell(start).getPiece()).setHasMoved(true); // type-cast an object
-        	*/
+            if (board.getCell(end).getPiece() instanceof Rook)
+            	((Rook)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
+            if (board.getCell(end).getPiece() instanceof King)
+            	((King)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
             return true;
         } else {
         	board.getCell(start).setPiece(board.getCell(start).getPiece()); // reset layer
         	return false;
         }
     }
+
+	public int getX1() {
+		return x1;
+	}
+
+	public int getX2() {
+		return x2;
+	}
+
+	public int getY1() {
+		return y1;
+	}
+
+	public int getY2() {
+		return y2;
+	}
 
 	public Chessboard getBoard() {
 		return board;

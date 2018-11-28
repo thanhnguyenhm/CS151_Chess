@@ -30,7 +30,7 @@ abstract class ChessPiece {
      * check if a move is valid
      * @return true if it is valid move
      */
-    boolean validMove(Move m) {
+    public boolean validMove(Move m) {
         return false;
     }
 
