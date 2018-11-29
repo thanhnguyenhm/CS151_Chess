@@ -32,6 +32,7 @@ public class Move {
     * 
     * Check validMove, move piece 
     */
+    //TODO: Add args for piece, start pos, end pos so this method can be passed through MoveValve
     public boolean tryMove() {
         if (board.getCell(start).getPiece().validMove(this) == true) {
         	board.getCell(end).setPiece(board.getCell(start).getPiece()); 
