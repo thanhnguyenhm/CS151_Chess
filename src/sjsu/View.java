@@ -1,137 +1,52 @@
 package sjsu;
 
 import javax.swing.*;
+
+//import com.sun.xml.internal.ws.api.message.Message;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+//import java.util.concurrent.BlockingQueue;
 
 /**
  * View class is a GUI that shows events and collects data from user
  */
 public class View extends JFrame implements MouseListener, MouseMotionListener {
-    JLayeredPane layer;
-    JPanel board;
-    JPanel panel;
-    JLabel piece;
-    Dimension boardSize = new Dimension(600,600);
-    int xAdjustment; // Change name to dx?
-    int yAdjustment; // Change name to dy?
+    private JFrame frame;
+	private JLayeredPane layer;
+	private Chessboard board;
+	private JLabel label; // Temporary image for piece movement
+    private JPanel topPanel;
+    private JButton reset;
+    private JButton quit;
+	private Move move;
+	private int ss = 75; // Square size
+	private int ds = ss/2; // Cursor offset is half a cell square
+	private Dimension boardSize = new Dimension(8 * ss, 8 * ss); // Board is 8x8 squares
 
+	private int start, end;
+	
     // View constructor
-    View() {
-        // add components to LayeredPane object
-        layer = new JLayeredPane();
-        getContentPane().add(layer);
-        layer.setPreferredSize(boardSize);
-        layer.addMouseListener(this);
-        layer.addMouseMotionListener(this);
+    public View() {
+        startGame();
 
-        // add chess board to LayeredPane
-        board = new JPanel();
-        layer.add(board, JLayeredPane.DEFAULT_LAYER);
-        board.setLayout(new GridLayout(8, 8));
-        board.setPreferredSize(boardSize);
-        board.setBounds(0,0,boardSize.width, boardSize.height);
+        // Add action listener to reset button
+        reset.addActionListener(e -> {
+            resetBoard();
+        });
 
-        for (int i = 0; i < 64; i++) {
-            JPanel cell = new JPanel( new BorderLayout() );
-            board.add(cell);
-            if ((i / 8) % 2 == 0) {
-                if (i % 2 == 0) cell.setBackground(Color.WHITE);
-                else cell.setBackground(Color.LIGHT_GRAY);
-            } else {
-                if (i % 2 == 0) cell.setBackground(Color.LIGHT_GRAY);
-                else cell.setBackground(Color.WHITE);
-            }
-        }
+        // Add action listener to quit button
+        quit.addActionListener(e -> {
+            System.exit(0);
+        });
 
-        // Initialize placement of chess piece on board
-        
-        // Black pawns
-        for (int i = 8; i < 16; i++)
-        {
-            piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-pawn.png")));
-            panel = (JPanel)board.getComponent(i);
-            panel.add(piece);    
-        }
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-rook.png")));
-        panel = (JPanel)board.getComponent(0);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-knight.png")));
-        panel = (JPanel)board.getComponent(1);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-knight.png")));
-        panel = (JPanel)board.getComponent(6);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-bishop.png")));
-        panel = (JPanel)board.getComponent(2);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-bishop.png")));
-        panel = (JPanel)board.getComponent(5);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-queen.png")));
-        panel = (JPanel)board.getComponent(3);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-king.png")));
-        panel = (JPanel)board.getComponent(4);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-rook.png")));
-        panel = (JPanel)board.getComponent(7);
-        panel.add(piece);
-            
-        // White pawns
-        for (int i = 48; i < 56; i++)
-        {
-            piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-pawn.png")));
-            panel = (JPanel)board.getComponent(i);
-            panel.add(piece);        
-        }
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-rook.png")));
-        panel = (JPanel)board.getComponent(56);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-knight.png")));
-        panel = (JPanel)board.getComponent(57);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-knight.png")));
-        panel = (JPanel)board.getComponent(62);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-bishop.png")));
-        panel = (JPanel)board.getComponent(58);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-bishop.png")));
-        panel = (JPanel)board.getComponent(61);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-queen.png")));
-        panel = (JPanel)board.getComponent(59);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-king.png")));
-        panel = (JPanel)board.getComponent(60);
-        panel.add(piece);
-        
-        piece = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-rook.png")));
-        panel = (JPanel)board.getComponent(63);
-        panel.add(piece);              
-        
-
-        // Setup frame
-        JFrame frame = new JFrame();
-        frame.add(layer);
+        // Setup frame---------------------------------------------------------
+        frame = new JFrame();
+        frame.setLayout(new BorderLayout());
+        frame.add(topPanel, BorderLayout.NORTH);
+        frame.add(layer, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);
@@ -140,58 +55,87 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * update status of a chess board
+     * Start Game
      */
-    void refreshBoard() {
+    void startGame() {
+        // Add components to LayeredPane object
+        layer = new JLayeredPane();
+        getContentPane().add(layer);
+        layer.setPreferredSize(boardSize);
+        layer.addMouseListener(this);
+        layer.addMouseMotionListener(this);
 
+        // Set up button
+        topPanel = new JPanel();
+        topPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        reset = new JButton("New Game");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        topPanel.add(reset, c);
+
+        quit = new JButton("Quit");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        topPanel.add(quit, c);
+
+        // add chess board to LayeredPane
+        board = new Chessboard(boardSize);
+        layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER);
     }
 
     /**
      * reset everything to the initial state
      */
     void resetBoard() {
-
+        frame.remove(layer);
+        startGame();
+        frame.add(layer);
+        frame.setVisible(true);
     }
 
+    /**
+     * update status of a chess board
+     */
+    void refreshBoard() {
+    	layer.removeAll(); //
+        layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER); // Updating the board
+    }
+
+    //TODO Refactor so that Message events are added to queue and sent through valves to Controller
     @Override
     public void mouseClicked(MouseEvent e) {
     }
-
+    //TODO Refactor so that Message events are added to queue and sent through valves to Controller
     @Override
     public void mousePressed(MouseEvent e) {
-        piece = null;
-        Component c =  board.findComponentAt(e.getX(), e.getY());
-
-        if (c instanceof JPanel)
-            return;
-
-        Point parentLocation = c.getParent().getLocation();
-        xAdjustment = parentLocation.x - e.getX();
-        yAdjustment = parentLocation.y - e.getY();
-        piece = (JLabel) c;
-        piece.setLocation(e.getX() + xAdjustment, e.getY() + yAdjustment);
-        piece.setSize(piece.getWidth(), piece.getHeight());
-        layer.add(piece, JLayeredPane.DRAG_LAYER);
+        label = null;
+        start = (e.getX()/ss) + (8*(e.getY()/ss)); // Calculate cell index from mouse click
+        if (start < 0 || start > 63) return; // Bounds check
+        if (board.getCell(start).getPiece() == null) return;
+        label = board.getCell(start).getPiece().getLabel();
+        label.setLocation(e.getX() - ds, e.getY() - ds);
+        layer.add(label, JLayeredPane.DRAG_LAYER);
+               
+    }
+    
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (label == null) return;
+        label.setLocation(e.getX() - ds, e.getY() - ds);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(piece == null) return;
-
-        piece.setVisible(false);
-        Component c =  board.findComponentAt(e.getX(), e.getY());
-
-        if (c instanceof JLabel){
-            Container parent = c.getParent();
-            parent.remove(0);
-            parent.add( piece );
+        if (label == null) return;
+        end = (e.getX()/ss) + (8*(e.getY()/ss));
+        if (end >= 0 && end <= 63) {
+	        move = new Move(board, start, end);
+	        move.tryMove();
         }
-        else {
-            Container parent = (Container)c;
-            parent.add( piece );
-        }
-
-        piece.setVisible(true);
+        refreshBoard();
     }
 
     @Override
@@ -203,12 +147,15 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseDragged(MouseEvent me) {
-        if (piece == null) return;
-        piece.setLocation(me.getX() + xAdjustment, me.getY() + yAdjustment);
-    }
-
-    @Override
     public void mouseMoved(MouseEvent e) {
     }
+
+    public Chessboard getBoard() {
+		return board;
+	}
+
+	public void setBoard(Chessboard board) {
+		this.board = board;
+	}
+
 }

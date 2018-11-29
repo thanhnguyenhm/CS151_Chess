@@ -1,5 +1,8 @@
 package sjsu;
 
+import javax.swing.JLabel;
+
+
 //TODO Remove all methods: responsibility of Model?
 
 /**
@@ -7,56 +10,39 @@ package sjsu;
  */
 abstract class ChessPiece {
 
-    PlayerSide playerSide;
-    Cell location;
-    boolean captured;
+	private JLabel label;
+    private PlayerSide color;
+    // private Cell location;  //should Chessboard have location instead?
+    // private boolean captured;
+    
 
     /**
      * default constructor
-     * @param playerSide playerSide of a piece
-     * @param location location of a piece on chess board
-     * @param captured false if the piece is still on the board
+     * @param playerSide color of piece (BLACK, WHITE)
+     * @param image file to load GUI image
      */
-    public ChessPiece(PlayerSide playerSide, Cell location, boolean captured) {
-        this.playerSide = playerSide;
-        this.location = location;
-        this.captured = captured;
+    public ChessPiece(PlayerSide color) {
+        this.color = color;
+        // this.captured = false;
     }
 
     /**
      * check if a move is valid
      * @return true if it is valid move
      */
-    boolean validMove() {
-        return true;
+    public boolean validMove(Move m) {
+        return false;
     }
 
-    /**
-     * A piece's ability to capture other piece
-     */
-    void capture() {
+	public JLabel getLabel() {
+		return label;
+	}
 
-    }
+	public void setLabel(JLabel label) {
+		this.label = label;
+	}
 
-    /**
-     * check if the piece is captured
-     * @return true if it is captured
-     */
-    boolean isCaptured() {
-        return true;
-    }
-    
-    /**
-     * A player selects a piece to try and move
-     */
-    void selectPiece() {
-
-    }    
-
-    /**
-     * Move a piece and update its location
-     */
-    void movePiece() {
-
-    }
+	public PlayerSide getColor() {
+		return color;
+	} 
 }

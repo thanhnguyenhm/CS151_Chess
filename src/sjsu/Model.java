@@ -4,13 +4,13 @@ package sjsu;
  * Class Model stores all the information about the current state of the game
  */
 public class Model {
-    Chessboard chessboard;
-    Cell cell;
-    Game game;
-    Player player;
-    Move move;
-    ChessPiece chesspiece;
-    boolean isOver;
+	private Chessboard chessboard;
+	private Cell cell;
+	private Game game;
+	private Player player;
+	private Move move;
+	private ChessPiece chesspiece;
+	private boolean isOver;
     
     /**
      * Initiate a chess game
