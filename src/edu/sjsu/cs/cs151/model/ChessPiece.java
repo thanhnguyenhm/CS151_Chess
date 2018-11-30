@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.model;
 
 import javax.swing.JLabel;
 
@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 /**
  * An abstract class that comprises 6 types of chess pieces
  */
-abstract class ChessPiece {
+public abstract class ChessPiece {
 
 	private JLabel label;
     private PlayerSide color;

@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.model;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;

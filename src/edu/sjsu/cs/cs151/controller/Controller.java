@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.controller;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -7,6 +7,9 @@ import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 
 import com.sun.xml.internal.ws.api.message.Message;
+
+import edu.sjsu.cs.cs151.model.Model;
+import edu.sjsu.cs.cs151.view.View;
 
 /**
  * The Controller class synchronizes information between the Model and View classes

@@ -1,4 +1,6 @@
-package sjsu;
+package edu.sjsu.cs.cs151.model;
+
+import edu.sjsu.cs.cs151.game.Game;
 
 /**
  * Class Model stores all the information about the current state of the game

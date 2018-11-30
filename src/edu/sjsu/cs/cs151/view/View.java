@@ -1,6 +1,9 @@
-package sjsu;
+package edu.sjsu.cs.cs151.view;
 
 import javax.swing.*;
+
+import edu.sjsu.cs.cs151.model.Chessboard;
+import edu.sjsu.cs.cs151.model.Move;
 
 //import com.sun.xml.internal.ws.api.message.Message;
 

@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.controller;
 import com.sun.xml.internal.ws.api.message.Message;
 
 /** Interface that performs certain action in response to Message. 

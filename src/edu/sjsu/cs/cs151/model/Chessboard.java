@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.model;
 
 import java.awt.Color;
 import java.awt.Dimension;
