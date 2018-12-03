@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.controller;
 
 public abstract class MoveValve implements Valve {
 	public ValveResponse execute(Message message)

@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.controller;
 
 public enum ValveResponse {
 	MISS, // Valve cannot process Message 

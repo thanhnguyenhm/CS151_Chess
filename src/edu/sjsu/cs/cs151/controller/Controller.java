@@ -1,10 +1,13 @@
-package sjsu;
+package edu.sjsu.cs.cs151.controller;
 
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
+
+import edu.sjsu.cs.cs151.model.Model;
+import edu.sjsu.cs.cs151.view.View;
 
 // import com.sun.xml.internal.ws.api.message.Message;
 
