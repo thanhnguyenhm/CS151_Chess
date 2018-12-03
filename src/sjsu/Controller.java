@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 
-import com.sun.xml.internal.ws.api.message.Message;
+// import com.sun.xml.internal.ws.api.message.Message;
 
 /**
  * The Controller class synchronizes information between the Model and View classes

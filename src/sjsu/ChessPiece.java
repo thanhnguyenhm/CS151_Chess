@@ -18,8 +18,7 @@ abstract class ChessPiece {
 
     /**
      * default constructor
-     * @param playerSide color of piece (BLACK, WHITE)
-     * @param image file to load GUI image
+     * @param color: color of piece (BLACK, WHITE)
      */
     public ChessPiece(PlayerSide color) {
         this.color = color;
