@@ -14,12 +14,17 @@ import edu.sjsu.cs.cs151.view.View;
  * Team project for SJSU CS151
  */
 public class Game {
+	// Should the BlockingQueue be public so we can share it among the View and Controller?
 	private static BlockingQueue<Message> queue = new LinkedBlockingQueue<Message>();
 	private static View view;
 	private static Model model;
 	
+	public static BlockingQueue<Message> getQueue() {
+		return queue;
+	}
+	
     public static void main(String[] args) throws Exception {
-        view = new View(); // view = View.init(queue);
+        view = new View(); // view = View.init(queue); <- From lecture slides. How should we init shared queue in the view?
         model = new Model();
         Controller game = new Controller(view, model, queue);
         game.mainLoop();
