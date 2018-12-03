@@ -84,4 +84,11 @@ public class Move {
 	public int getEnd() {
 		return end;
 	}
+
+	/**
+	 * Reset play turn when user click New Game
+	 */
+	public static void resetPlayTurn() {
+    	playerTurn = PlayerSide.WHITE;
+	}
 }

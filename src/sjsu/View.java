@@ -92,6 +92,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     void resetBoard() {
         frame.remove(layer);
         startGame();
+        Move.resetPlayTurn();
         frame.add(layer);
         frame.setVisible(true);
     }
