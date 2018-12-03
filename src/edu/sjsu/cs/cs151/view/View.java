@@ -28,9 +28,9 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     private JButton reset;
     private JButton quit;
 	private Move move;
-	private int ss = 75; // Square size
-	private int ds = ss/2; // Cursor offset is half a cell square
-	private Dimension boardSize = new Dimension(8 * ss, 8 * ss); // Board is 8x8 squares
+	private static final int SQUARE_SIZE = 75; // Square size
+	private static final int CURSOR_OFFSET = SQUARE_SIZE/2; // Cursor offset is half a cell square
+	private Dimension boardSize = new Dimension(8 * SQUARE_SIZE, 8 * SQUARE_SIZE); // Board is 8x8 squares
 	// Trying to get the shared queue - should it be public in Game?
 	public static BlockingQueue<Message> queue = Game.getQueue(); 
 	
@@ -134,11 +134,11 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     @Override
     public void mousePressed(MouseEvent e) {
         label = null;
-        start = (e.getX()/ss) + (8*(e.getY()/ss)); // Calculate cell index from mouse click
+        start = (e.getX()/SQUARE_SIZE) + (8*(e.getY()/SQUARE_SIZE)); // Calculate cell index from mouse click
         if (start < 0 || start > 63) return; // Bounds check
         if (board.getCell(start).getPiece() == null) return;
         label = board.getCell(start).getPiece().getLabel();
-        label.setLocation(e.getX() - ds, e.getY() - ds);
+        label.setLocation(e.getX() - CURSOR_OFFSET, e.getY() - CURSOR_OFFSET);
         layer.add(label, JLayeredPane.DRAG_LAYER);
                
     }
@@ -146,13 +146,13 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (label == null) return;
-        label.setLocation(e.getX() - ds, e.getY() - ds);
+        label.setLocation(e.getX() - CURSOR_OFFSET, e.getY() - CURSOR_OFFSET);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         if (label == null) return;
-        end = (e.getX()/ss) + (8*(e.getY()/ss));
+        end = (e.getX()/SQUARE_SIZE) + (8*(e.getY()/SQUARE_SIZE));
         if (end >= 0 && end <= 63) {
 	        move = new Move(board, start, end);
 	        move.tryMove();
