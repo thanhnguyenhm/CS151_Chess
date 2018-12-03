@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.model;
 
 /**
  * Stores the information of a move

@@ -1,4 +1,4 @@
-package sjsu;
+package edu.sjsu.cs.cs151.controller;
 
 /**
 * Handles Valve response to new game Message received from View to Model.
