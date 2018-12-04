@@ -35,18 +35,22 @@ public class Move {
     */
     //TODO: Add args for piece, start pos, end pos so this method can be passed through MoveValve
     public boolean tryMove() {
-    	if (board.getCell(start).getPiece().getColor() == playerTurn) {
-			if (board.getCell(start).getPiece().validMove(this) == true) {
-				board.getCell(end).setPiece(board.getCell(start).getPiece());
-				board.getCell(start).setPiece(null);
-				if (board.getCell(end).getPiece() instanceof Pawn)
+    	if (board.getCell(start).getPiece().getColor() == playerTurn) { // check if play turn is valid
+			if (board.getCell(start).getPiece().validMove(this)) { // check if move is valid
+				board.getCell(end).setPiece(board.getCell(start).getPiece()); // then place piece in end
+				board.getCell(start).setPiece(null); // and remove piece in start
+
+				if (board.getCell(end).getPiece() instanceof Pawn) // check if pawn has moved TODO: pawn special move
 					((Pawn)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
-				if (board.getCell(end).getPiece() instanceof Rook)
+				if (board.getCell(end).getPiece() instanceof Rook) // check if rook has moved TODO: for castling
 					((Rook)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
-				if (board.getCell(end).getPiece() instanceof King)
+				if (board.getCell(end).getPiece() instanceof King) // check if king has moved
 					((King)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
+
+				// change player turn
 				if (playerTurn == PlayerSide.WHITE) playerTurn = PlayerSide.BLACK;
 				else playerTurn = PlayerSide.WHITE;
+
 				return true;
 			} else {
 				board.getCell(start).setPiece(board.getCell(start).getPiece()); // reset layer

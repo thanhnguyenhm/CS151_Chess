@@ -16,8 +16,8 @@ public class Rook extends ChessPiece{
      *
      * @param side Player's color, black or white
      */
-    public Rook(PlayerSide side) {
-    	 super(side);
+    public Rook(PlayerSide side, int location) {
+    	 super(side, location);
          if (side == PlayerSide.BLACK)
         	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-rook.png"))));
          else
@@ -30,6 +30,7 @@ public class Rook extends ChessPiece{
      * @param m a Chess move
      * @return true or false for validMove of chess piece
      */
+	@SuppressWarnings("Duplicates")
     public boolean validMove(Move m) {
     	
     	// Check that the end cell is empty or an opponent's piece

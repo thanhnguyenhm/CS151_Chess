@@ -1,6 +1,7 @@
 package edu.sjsu.cs.cs151.model;
 
 import javax.swing.JLabel;
+import java.util.ArrayList;
 
 
 //TODO Remove all methods: responsibility of Model?
@@ -12,6 +13,7 @@ public abstract class ChessPiece {
 
 	private JLabel label;
     private PlayerSide color;
+    private int location;
     // private Cell location;  //should Chessboard have location instead?
     // private boolean captured;
     
@@ -20,8 +22,9 @@ public abstract class ChessPiece {
      * default constructor
      * @param color: color of piece (BLACK, WHITE)
      */
-    public ChessPiece(PlayerSide color) {
+    public ChessPiece(PlayerSide color, int location) {
         this.color = color;
+        this.location = location;
         // this.captured = false;
     }
 
@@ -43,5 +46,5 @@ public abstract class ChessPiece {
 
 	public PlayerSide getColor() {
 		return color;
-	} 
+	}
 }

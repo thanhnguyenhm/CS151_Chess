@@ -17,8 +17,8 @@ public class King extends ChessPiece{
      *
      *@param side Player's color, black or white
      */
-    public King(PlayerSide side) {
-    	 super(side);
+    public King(PlayerSide side, int location) {
+    	 super(side, location);
          if (side == PlayerSide.BLACK)
         	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-king.png"))));
          else

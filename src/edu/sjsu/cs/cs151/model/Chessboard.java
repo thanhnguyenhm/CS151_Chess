@@ -52,49 +52,49 @@ public class Chessboard {
         	// Black pieces
         	case 0:
         	case 7:
-        		cell[i].setPiece(new Rook(PlayerSide.BLACK));
+        		cell[i].setPiece(new Rook(PlayerSide.BLACK, i));
         		break;        		
         	case 1:
         	case 6:
-        		cell[i].setPiece(new Knight(PlayerSide.BLACK));
+        		cell[i].setPiece(new Knight(PlayerSide.BLACK, i));
         		break;
         	case 2:
         	case 5:
-        		cell[i].setPiece(new Bishop(PlayerSide.BLACK));
+        		cell[i].setPiece(new Bishop(PlayerSide.BLACK, i));
         		break;
         	case 3:
-        		cell[i].setPiece(new Queen(PlayerSide.BLACK));
+        		cell[i].setPiece(new Queen(PlayerSide.BLACK, i));
         		break;
         	case 4:
-        		cell[i].setPiece(new King(PlayerSide.BLACK));
+        		cell[i].setPiece(new King(PlayerSide.BLACK, i));
         		break;
         	case 8:
         		for (int j = 0; j < 8; j++)
-        			cell[j + i].setPiece(new Pawn(PlayerSide.BLACK));
+        			cell[j + i].setPiece(new Pawn(PlayerSide.BLACK, i));
         		break;
         		
         	// White pieces
         	case 56:
         	case 63:
-        		cell[i].setPiece(new Rook(PlayerSide.WHITE));
+        		cell[i].setPiece(new Rook(PlayerSide.WHITE, i));
         		break;        		
         	case 57:
         	case 62:
-        		cell[i].setPiece(new Knight(PlayerSide.WHITE));
+        		cell[i].setPiece(new Knight(PlayerSide.WHITE, i));
         		break;
         	case 58:
         	case 61:
-        		cell[i].setPiece(new Bishop(PlayerSide.WHITE));
+        		cell[i].setPiece(new Bishop(PlayerSide.WHITE, i));
         		break;
         	case 59:
-        		cell[i].setPiece(new Queen(PlayerSide.WHITE));
+        		cell[i].setPiece(new Queen(PlayerSide.WHITE, i));
         		break;
         	case 60:
-        		cell[i].setPiece(new King(PlayerSide.WHITE));
+        		cell[i].setPiece(new King(PlayerSide.WHITE, i));
         		break;
         	case 48:
         		for (int j = 0; j < 8; j++)
-        			cell[j + i].setPiece(new Pawn(PlayerSide.WHITE));
+        			cell[j + i].setPiece(new Pawn(PlayerSide.WHITE, i));
         		break;
         	}
     	}        	

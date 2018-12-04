@@ -12,8 +12,8 @@ public class Queen extends ChessPiece{
      *
      * @param side Player's color, black or white
      */
-    public Queen(PlayerSide side) {
-    	 super(side);
+    public Queen(PlayerSide side, int location) {
+    	 super(side, location);
          if (side == PlayerSide.BLACK)
          	this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-queen.png"))));
          else
@@ -26,6 +26,7 @@ public class Queen extends ChessPiece{
      * @param m a Chess move
      * @return true or false for validMove of chess piece
      */
+	@SuppressWarnings("Duplicates")
     public boolean validMove(Move m) {  
     	
     	// Check that the end cell is empty or an opponent's piece
