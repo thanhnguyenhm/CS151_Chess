@@ -12,6 +12,7 @@ public abstract class NewGameValve implements Valve {
 		}
 		// TODO: actions in Model
 		// TODO: actions in View
+			// resetBoard();
 		return ValveResponse.EXECUTED;
 	}
 

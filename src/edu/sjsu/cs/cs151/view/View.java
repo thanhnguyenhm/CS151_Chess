@@ -3,6 +3,7 @@ package edu.sjsu.cs.cs151.view;
 import javax.swing.*;
 
 import edu.sjsu.cs.cs151.controller.Message;
+import edu.sjsu.cs.cs151.controller.NewGameMessage;
 import edu.sjsu.cs.cs151.game.Game;
 import edu.sjsu.cs.cs151.model.Chessboard;
 import edu.sjsu.cs.cs151.model.Move;
@@ -10,6 +11,8 @@ import edu.sjsu.cs.cs151.model.Move;
 //import com.sun.xml.internal.ws.api.message.Message;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -31,8 +34,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
 	private static final int SQUARE_SIZE = 75; // Square size
 	private static final int CURSOR_OFFSET = SQUARE_SIZE/2; // Cursor offset is half a cell square
 	private Dimension boardSize = new Dimension(8 * SQUARE_SIZE, 8 * SQUARE_SIZE); // Board is 8x8 squares
-	// Trying to get the shared queue - should it be public in Game?
-	public static BlockingQueue<Message> queue = Game.getQueue(); 
+	// Shared BlockingQueue
+	private static BlockingQueue<Message> queue = Game.getQueue(); 
 	
 	private int start, end;
 	
@@ -41,8 +44,15 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         startGame();
 
         // Add action listener to reset button
+        //TODO make action listeners put events in queue
         reset.addActionListener(e -> {
-            resetBoard();
+        	try {
+				queue.put(new NewGameMessage());
+				System.out.println(queue.peek());
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+            resetBoard(); // comment out to see NewGameMessage location
         });
 
         // Add action listener to quit button
@@ -63,19 +73,19 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     }
     
  // Trying to put events into shared queue.
-    /**
+    
     private class NewGameListener implements ActionListener {
-    	
+    	@Override
     	public void actionPerformed(ActionEvent event) {
     		try  {
-    			queue.put(new NewGameMessage()); // Queue doesn't accept NewGameMessage argument for some reason
+    			queue.put(new NewGameMessage());
     			}
     		catch(InterruptedException exception){
     			exception.printStackTrace();
     			}
     		}
     	}
-    **/
+   
 
     /**
      * Start Game
