@@ -15,7 +15,7 @@ public class Controller {
     private List<Valve> valves = new LinkedList<Valve>();
 	private BlockingQueue<Message> queue;
 	private Model model;
-	private View view;
+	private static View view;
 	
     /**
      * constructor
@@ -24,6 +24,7 @@ public class Controller {
     public Controller(BlockingQueue<Message> queue, Model model, View view) {
     	valves.add(new NewGameValve());
     	valves.add(new MoveValve(model, view));
+    	valves.add(new EndGameValve());
     	this.queue = queue;
     	this.model = model;
     	this.view = view;
@@ -41,7 +42,7 @@ public class Controller {
      * getter for view
      * @return view
      */
-    public View getView() {
+    public static View getView() {
         return view;
     }
     

@@ -5,6 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import edu.sjsu.cs.cs151.controller.Message;
 import edu.sjsu.cs.cs151.controller.NewGameMessage;
 import edu.sjsu.cs.cs151.controller.MoveMessage;
+import edu.sjsu.cs.cs151.controller.EndGameMessage;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +17,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.*;
 
 /**
- * View class is a GUI that shows events and collects data from user
+ * View class is a GUI that receives input from users and forwards events to the Controller
  */
 public class View extends JFrame implements MouseListener, MouseMotionListener {
 	private static BlockingQueue<Message> queue;
@@ -38,23 +39,24 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     	startGame();
 
         // Add action listener to reset button
-        //TODO make action listeners put events in queue
         reset.addActionListener(e -> {
         	try {
-				queue.put(new NewGameMessage());
-				System.out.println(queue.peek());
+				queue.put(new NewGameMessage()); // Add to queue
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-            resetBoard(); // comment out to see NewGameMessage location
         });
 
         // Add action listener to quit button
         quit.addActionListener(e -> {
-            System.exit(0);
+        	try {
+				queue.put(new EndGameMessage()); // Add to queue
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}     
         });
 
-        // Setup frame---------------------------------------------------------
+        // Setup frame
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.add(topPanel, BorderLayout.NORTH);
@@ -66,23 +68,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         frame.setVisible(true);
     }
     
- // Trying to put events into shared queue.
-    
-    private class NewGameListener implements ActionListener {
-    	@Override
-    	public void actionPerformed(ActionEvent event) {
-    		try  {
-    			queue.put(new NewGameMessage());
-    			}
-    		catch(InterruptedException exception){
-    			exception.printStackTrace();
-    			}
-    		}
-    	}
-   
-
     /**
-     * Start Game
+     * Start Game: render buttons, add chess board to LayeredPane
      */
     void startGame() {
         // Add components to LayeredPane object
@@ -129,19 +116,24 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * reset everything to the initial state
+     * Reset View to the initial state
      */
     public void resetBoard() {
         frame.remove(layer);
         startGame();
-        // TODO - Use a message, not Move, because View doesn't know about Model package contents (Move)
-        //Move.resetPlayTurn();
         frame.add(layer);
         frame.setVisible(true);
     }
+    
+    /**
+     * End the game: exit the program
+     */    
+    void endGame() {
+    	System.exit(0);	
+    }
 
     /**
-     * update status of a chess board
+     * Update status of a chess board
      */
     public void refreshBoard() {
     	layer.removeAll(); //
@@ -151,7 +143,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
     }
-    //TODO Refactor so that Message events are added to queue and sent through valves to Controller
+
     @Override
     public void mousePressed(MouseEvent e) {
         label = null;
