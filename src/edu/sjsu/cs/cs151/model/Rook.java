@@ -43,7 +43,7 @@ public class Rook extends ChessPiece{
 		ChessPiece piece;
 		boolean isOccupied = false;
 
-		// find all possible moves from current position start
+		// find x, y location of start
 		int start = m.getStart();
 		int x1 = start % 8;
 		int y1 = start / 8;
