@@ -78,7 +78,11 @@ public class Queen extends ChessPiece{
 					moves.remove(major.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(major.get(i)) ;
+        
+				piece = m.getBoard().getCell(major.get(i)).getPiece();
+        
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -90,7 +94,11 @@ public class Queen extends ChessPiece{
 					moves.remove(major.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(major.get(i)) ;
+        
+				piece = m.getBoard().getCell(major.get(i)).getPiece();
+
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -128,7 +136,11 @@ public class Queen extends ChessPiece{
 					moves.remove(minor.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(minor.get(i)) ;
+
+				piece = m.getBoard().getCell(minor.get(i)).getPiece();
+
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -140,7 +152,11 @@ public class Queen extends ChessPiece{
 					moves.remove(minor.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(minor.get(i)) ;
+
+				piece = m.getBoard().getCell(minor.get(i)).getPiece();
+
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -149,7 +165,10 @@ public class Queen extends ChessPiece{
 		moves.remove(Integer.valueOf(start)); // remove cell that holds the piece itself
 
 		for (int end : moves) {
+
 			piece = m.getBoard().getPiece(end) ;
+
+			piece = m.getBoard().getCell(end).getPiece();
 
 			if (piece == null) {// if cell is not occupied
 				listOfValidMoves.add(end);
@@ -174,7 +193,11 @@ public class Queen extends ChessPiece{
 					moves.remove(vMoves.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(vMoves.get(i)) ;
+
+				piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
+
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -186,7 +209,11 @@ public class Queen extends ChessPiece{
 					moves.remove(vMoves.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(vMoves.get(i)) ;
+
+				piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
+
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -207,7 +234,11 @@ public class Queen extends ChessPiece{
 					moves.remove(hMoves.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(hMoves.get(i)) ;
+
+				piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
+
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -218,7 +249,11 @@ public class Queen extends ChessPiece{
 					moves.remove(hMoves.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(hMoves.get(i)) ;
+
+				piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
+
 				if (piece != null) isOccupied = true;
 			}
 		}
@@ -226,7 +261,10 @@ public class Queen extends ChessPiece{
 		moves.remove(Integer.valueOf(start)); // remove cell that holds the piece itself
 
 		for (int end : moves) {
+
 			piece = m.getBoard().getPiece(end) ;
+			piece = m.getBoard().getCell(end).getPiece();
+
 
 			if (piece == null) {// if cell is not occupied
 				listOfValidMoves.add(end);

@@ -1,11 +1,17 @@
 package edu.sjsu.cs.cs151.model;
 
+
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 import java.util.ArrayList;
 
 /**
  * Bishop piece implementation
  */
 public class Bishop extends ChessPiece{
+
 	// Thanh's work
 	// instance field
 	ArrayList<Integer> listOfValidMoves = new ArrayList<>();
@@ -69,11 +75,28 @@ public class Bishop extends ChessPiece{
 					moves.remove(major.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(major.get(i));
+
+				piece = m.getBoard().getCell(major.get(i)).getPiece();
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
 		}
+
+		if (major.indexOf(start) != major.size() - 1) {
+			for (int i = major.indexOf(start) + 1; i < major.size(); i++) {
+				if (isOccupied) {
+					moves.remove(major.get(i));
+					continue;
+				}
+				piece = m.getBoard().getCell(major.get(i)).getPiece();
+
+				if (piece != null) isOccupied = true;
+			}
+			isOccupied = false; // reset
+		}
+
 
 		if (major.indexOf(start) != major.size() - 1) {
 			for (int i = major.indexOf(start) + 1; i < major.size(); i++) {
@@ -86,6 +109,8 @@ public class Bishop extends ChessPiece{
 			}
 			isOccupied = false; // reset
 		}
+
+
 		moves.remove(Integer.valueOf(start)); // remove cell that holds the piece itself
 
 		// Case 2: Bishop moves in minor diagonal line---------------------------
@@ -119,11 +144,28 @@ public class Bishop extends ChessPiece{
 					moves.remove(minor.get(i));
 					continue;
 				}
+
 				piece = m.getBoard().getPiece(minor.get(i));
+
+				piece = m.getBoard().getCell(minor.get(i)).getPiece();
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
 		}
+
+		if (minor.indexOf(start) != minor.size() - 1) {
+			for (int i = minor.indexOf(start) + 1; i < minor.size(); i++) {
+				if (isOccupied) {
+					moves.remove(minor.get(i));
+					continue;
+				}
+				piece = m.getBoard().getCell(minor.get(i)).getPiece();
+
+				if (piece != null) isOccupied = true;
+			}
+			isOccupied = false; // reset
+		}
+
 
 		if (minor.indexOf(start) != minor.size() - 1) {
 			for (int i = minor.indexOf(start) + 1; i < minor.size(); i++) {
@@ -140,6 +182,12 @@ public class Bishop extends ChessPiece{
 
 		for (int end : moves) {
 			piece = m.getBoard().getPiece(end);
+
+		moves.remove(Integer.valueOf(start)); // remove cell that holds the piece itself
+
+		for (int end : moves) {
+			piece = m.getBoard().getCell(end).getPiece();
+ 
 
 			if (piece == null) {// if cell is not occupied
 				listOfValidMoves.add(end);
