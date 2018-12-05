@@ -3,6 +3,10 @@ package edu.sjsu.cs.cs151.controller;
 import edu.sjsu.cs.cs151.view.View;
 import java.lang.reflect.*;
 
+/**
+* Represents an "end game" event sent from the View when the user presses "Quit" 
+* or there is a checkmate
+*/	
 
 public class EndGameMessage extends Message {
 	private static final long serialVersionUID = 1L;
@@ -11,10 +15,9 @@ public class EndGameMessage extends Message {
 	View view = Controller.getView();
     Method m;
 	try {
-		m = View.class.getDeclaredMethod("resetBoard"); //TODO Method for ending game
+		m = View.class.getDeclaredMethod("endGame"); 
         m.setAccessible(true); // Use reflection to access private method
-        m.invoke(view); // Reset board in the View
-        System.out.println("Updating View from Controller");
+        m.invoke(view); // Close the program
         
 	} catch (NoSuchMethodException e) {
 		// TODO Auto-generated catch block
@@ -35,11 +38,5 @@ catch (IllegalAccessException e) {
 		e.printStackTrace();
 	}		
 }	
-
-	@Override
-	protected void ps() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
