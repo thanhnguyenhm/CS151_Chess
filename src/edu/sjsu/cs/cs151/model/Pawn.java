@@ -50,24 +50,26 @@ public class Pawn extends ChessPiece{
 		int y1 = start / 8;
 		int x2, y2;
 		int end;
-		ChessPiece currentPiece;
+		ChessPiece currentPiece, midPiece;
 
 		// Pawn's first move of the game
     	if (!hasMoved) {
     		if (getColor() == PlayerSide.BLACK) {
-				// Case 0: black pawn special move without capture
+				// Case 0.a: black pawn special move without capture
 				end = start + 16;
 				currentPiece = m.getBoard().getCell(end).getPiece();
+				midPiece = m.getBoard().getCell(start + 8).getPiece();  // pawn can't move two steps if there's a piece in between
 				if (end >= 0 && end <= 63) {
-					if (currentPiece == null) listOfValidMoves.add(end);
+					if (currentPiece == null && midPiece == null) listOfValidMoves.add(end);
 				}
 
     		} else {
-				// Case 0: white pawn special move without capture
+				// Case 0.b: white pawn special move without capture
 				end = start - 16;
 				currentPiece = m.getBoard().getCell(end).getPiece();
+				midPiece = m.getBoard().getCell(start - 8).getPiece();
 				if (end >= 0 && end <= 63) {
-					if (currentPiece == null) listOfValidMoves.add(end);
+					if (currentPiece == null && midPiece == null) listOfValidMoves.add(end);
 				}
     		}
     	}
