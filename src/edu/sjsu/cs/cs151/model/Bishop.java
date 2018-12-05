@@ -78,7 +78,7 @@ public class Bishop extends ChessPiece{
 
 				piece = m.getBoard().getPiece(major.get(i));
 
-				piece = m.getBoard().getCell(major.get(i)).getPiece();
+				//piece = m.getBoard().getCell(major.get(i)).getPiece();
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -90,7 +90,10 @@ public class Bishop extends ChessPiece{
 					moves.remove(major.get(i));
 					continue;
 				}
-				piece = m.getBoard().getCell(major.get(i)).getPiece();
+				
+				piece = m.getBoard().getPiece(major.get(i));
+				
+				//piece = m.getBoard().getCell(major.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -147,7 +150,7 @@ public class Bishop extends ChessPiece{
 
 				piece = m.getBoard().getPiece(minor.get(i));
 
-				piece = m.getBoard().getCell(minor.get(i)).getPiece();
+				//piece = m.getBoard().getCell(minor.get(i)).getPiece();
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -159,7 +162,9 @@ public class Bishop extends ChessPiece{
 					moves.remove(minor.get(i));
 					continue;
 				}
-				piece = m.getBoard().getCell(minor.get(i)).getPiece();
+				piece = m.getBoard().getPiece(minor.get(i));
+				
+				//piece = m.getBoard().getCell(minor.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -183,10 +188,10 @@ public class Bishop extends ChessPiece{
 		for (int end : moves) {
 			piece = m.getBoard().getPiece(end);
 
-		moves.remove(Integer.valueOf(start)); // remove cell that holds the piece itself
+		//moves.remove(Integer.valueOf(start)); // remove cell that holds the piece itself
 
-		for (int end : moves) {
-			piece = m.getBoard().getCell(end).getPiece();
+		//for (int end : moves) {
+			//piece = m.getBoard().getCell(end).getPiece();
  
 
 			if (piece == null) {// if cell is not occupied

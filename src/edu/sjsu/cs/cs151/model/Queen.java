@@ -81,7 +81,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(major.get(i)) ;
         
-				piece = m.getBoard().getCell(major.get(i)).getPiece();
+				//piece = m.getBoard().getCell(major.get(i)).getPiece();
         
 				if (piece != null) isOccupied = true;
 			}
@@ -97,7 +97,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(major.get(i)) ;
         
-				piece = m.getBoard().getCell(major.get(i)).getPiece();
+				//piece = m.getBoard().getCell(major.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -139,7 +139,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(minor.get(i)) ;
 
-				piece = m.getBoard().getCell(minor.get(i)).getPiece();
+				//piece = m.getBoard().getCell(minor.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -155,7 +155,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(minor.get(i)) ;
 
-				piece = m.getBoard().getCell(minor.get(i)).getPiece();
+				//piece = m.getBoard().getCell(minor.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -168,7 +168,7 @@ public class Queen extends ChessPiece{
 
 			piece = m.getBoard().getPiece(end) ;
 
-			piece = m.getBoard().getCell(end).getPiece();
+			//piece = m.getBoard().getCell(end).getPiece();
 
 			if (piece == null) {// if cell is not occupied
 				listOfValidMoves.add(end);
@@ -196,7 +196,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(vMoves.get(i)) ;
 
-				piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
+				//piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -212,7 +212,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(vMoves.get(i)) ;
 
-				piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
+				//piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -237,7 +237,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(hMoves.get(i)) ;
 
-				piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
+				//piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -252,7 +252,7 @@ public class Queen extends ChessPiece{
 
 				piece = m.getBoard().getPiece(hMoves.get(i)) ;
 
-				piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
+				//piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
 
 				if (piece != null) isOccupied = true;
 			}
@@ -263,7 +263,7 @@ public class Queen extends ChessPiece{
 		for (int end : moves) {
 
 			piece = m.getBoard().getPiece(end) ;
-			piece = m.getBoard().getCell(end).getPiece();
+			//piece = m.getBoard().getCell(end).getPiece();
 
 
 			if (piece == null) {// if cell is not occupied

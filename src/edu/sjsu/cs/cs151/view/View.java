@@ -172,7 +172,6 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
 				e1.printStackTrace();
 			}  
         }
-        refreshBoard();
     }
 
     @Override
