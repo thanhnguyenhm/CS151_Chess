@@ -19,7 +19,8 @@ public class Move {
      * @param start: start position when the mouse is pressed
      * @param end: end position when the mouse is released
      */
-    public Move(int start, int end) {
+    public Move(Chessboard board, int start, int end) {
+    	this.board = board;
         this.start = start;
         this.end = end;
         y1 = start/8;
@@ -31,10 +32,7 @@ public class Move {
     /**
     * 
     * Check validMove, move piece 
-    */
-    // Currently broken...
-    //TODO: Add args for piece, start pos, end pos so this method can be passed through MoveValve
-    // TODO!: Add board.setPiece(i) and board.setPiece(x,y) to handle updates to ChessBoard, use null for no piece
+    */   
     public boolean tryMove() {
     	if (board.getPiece(start).getColor() == playerTurn) { // check if play turn is valid
 			if (board.getPiece(start).validMove(this)) { // check if move is valid

@@ -8,7 +8,6 @@ public class NewGameValve implements Valve {
 		if(message.getClass() != NewGameMessage.class) {
 			return ValveResponse.MISS;
 		}
-		message.ps();
 		return ValveResponse.EXECUTED;
 	}
 

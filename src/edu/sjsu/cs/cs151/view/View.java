@@ -34,7 +34,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
 	
     // View constructor
     public View(BlockingQueue<Message> queue) {
-    	this.queue = queue;
+    	View.queue = queue;
     	startGame();
 
         // Add action listener to reset button
@@ -112,11 +112,26 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         board = new ViewBoard(boardSize);
         layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER);
     }
+    /*
+     * Draws the piece in new position
+     */    
+    public void viewMove(int start, int end) {
+    	board.getCell(end).setLabel(label);
+    	board.getCell(start).setLabel(null);
+    	refreshBoard();
+    }
+    /*
+     * Redraws the original pieces
+     */
+    public void dontMove(int start, int end) {
+    	board.getCell(start).setLabel(label);
+    	refreshBoard();
+    }
 
     /**
      * reset everything to the initial state
      */
-    void resetBoard() {
+    public void resetBoard() {
         frame.remove(layer);
         startGame();
         // TODO - Use a message, not Move, because View doesn't know about Model package contents (Move)
@@ -128,7 +143,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     /**
      * update status of a chess board
      */
-    void refreshBoard() {
+    public void refreshBoard() {
     	layer.removeAll(); //
         layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER); // Updating the board
     }

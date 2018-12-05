@@ -23,7 +23,7 @@ public class Controller {
      */
     public Controller(BlockingQueue<Message> queue, Model model, View view) {
     	valves.add(new NewGameValve());
-    	valves.add(new MoveValve());
+    	valves.add(new MoveValve(model, view));
     	this.queue = queue;
     	this.model = model;
     	this.view = view;

@@ -9,17 +9,22 @@ import java.util.concurrent.BlockingQueue;
 public class Model {
 	private static BlockingQueue<Message> queue;
 	private Chessboard board;
+	private Move move;
 
     public Model(BlockingQueue<Message> queue) {
-    	this.queue = queue;
+    	Model.queue = queue;
+    	board = new Chessboard();
     }
     
     public void startGame() {
     	board = new Chessboard();
     }
     
-    public Boolean move(int start, int end) {
-    	System.out.println(start + ", " + end);
-    	return false;
+    public void setMove(int start, int end) {
+    	move = new Move(board, start, end);
+    }
+    
+    public Move getMove() {
+    	return move;
     }
 }

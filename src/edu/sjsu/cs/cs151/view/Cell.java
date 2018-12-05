@@ -13,6 +13,7 @@ public class Cell {
     public Cell(Color color) {
     	panel = new JPanel(new BorderLayout());
     	panel.setBackground(color);
+    	label = null;
     }
     
 	public JPanel getPanel() {
@@ -30,6 +31,7 @@ public class Cell {
 	public void setLabel(JLabel label) {
 		this.label = label;
 		panel.removeAll();
-		panel.add(label);
+		if (label != null)
+			panel.add(label);
 	}
 }
