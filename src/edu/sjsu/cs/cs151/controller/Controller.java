@@ -15,7 +15,7 @@ public class Controller {
     private List<Valve> valves = new LinkedList<Valve>();
 	private BlockingQueue<Message> queue;
 	private Model model;
-	private View view;
+	private static View view;
 	
     /**
      * constructor
@@ -41,7 +41,7 @@ public class Controller {
      * getter for view
      * @return view
      */
-    public View getView() {
+    public static View getView() {
         return view;
     }
     

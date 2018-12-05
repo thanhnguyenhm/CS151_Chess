@@ -42,11 +42,10 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         reset.addActionListener(e -> {
         	try {
 				queue.put(new NewGameMessage());
-				System.out.println(queue.peek());
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-            resetBoard(); // comment out to see NewGameMessage location
+            //resetBoard(); // No longer needed - messaged passed through Controller 
         });
 
         // Add action listener to quit button
