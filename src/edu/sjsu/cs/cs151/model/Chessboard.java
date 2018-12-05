@@ -68,4 +68,8 @@ public class Chessboard {
 		int i = 8 * y + x;
 		return piece[i];
 	}
+	
+	public void setPiece(int i, ChessPiece piece) {
+		this.piece[i] = piece;		
+	}
 }

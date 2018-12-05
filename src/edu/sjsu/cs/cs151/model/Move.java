@@ -34,12 +34,12 @@ public class Move {
     */
     // Currently broken...
     //TODO: Add args for piece, start pos, end pos so this method can be passed through MoveValve
-    /* TODO!: Add board.setPiece(i) and board.setPiece(x,y) to handle updates to ChessBoard, use null for no piece
+    // TODO!: Add board.setPiece(i) and board.setPiece(x,y) to handle updates to ChessBoard, use null for no piece
     public boolean tryMove() {
     	if (board.getPiece(start).getColor() == playerTurn) { // check if play turn is valid
 			if (board.getPiece(start).validMove(this)) { // check if move is valid
-				board.getPiece(end).setPiece(board.getPiece(start)); // then place piece in end
-				board.getPiece(start).setPiece(null); // and remove piece in start
+				board.setPiece(end, board.getPiece(start)); // then place piece in end
+				board.setPiece(start, null); // and remove piece in start
 
 				if (board.getPiece(end) instanceof Pawn) // check if pawn has moved TODO: pawn special move
 					((Pawn)board.getPiece(end)).setHasMoved(true); // type-cast an object
@@ -52,16 +52,12 @@ public class Move {
 				if (playerTurn == PlayerSide.WHITE) playerTurn = PlayerSide.BLACK;
 				else playerTurn = PlayerSide.WHITE;
 
-				return true;
-			} else {
-				board.getPiece(start).setPiece(board.getPiece(start)); // reset layer
-				return false;
+				return true;	
 			}
 		}
-		board.getPiece(start).setPiece(board.getPiece(start)); // reset layer
+		// TODO: send a message to View to reset layer that has the piece label that we moved
 		return false;
     }
-    */
 
 	public int getX1() {
 		return x1;
