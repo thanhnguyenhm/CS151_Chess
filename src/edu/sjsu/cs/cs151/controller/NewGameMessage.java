@@ -1,5 +1,6 @@
 package edu.sjsu.cs.cs151.controller;
 
+import edu.sjsu.cs.cs151.model.Model;
 import edu.sjsu.cs.cs151.view.View;
 import java.lang.reflect.*;
 
@@ -12,11 +13,18 @@ public class NewGameMessage extends Message {
 	public NewGameMessage() {
 
 		View view = Controller.getView();
+		Model model = Controller.getModel();
         Method m;
+        Method n;
 		try {
 			m = View.class.getDeclaredMethod("resetBoard"); 
 	        m.setAccessible(true); // Use reflection to access private resetBoard method
 	        m.invoke(view); // Reset board in the View     
+	        
+	        n = Model.class.getDeclaredMethod("resetGame"); 
+	        n.setAccessible(true); // Use reflection to access private resetBoard method
+	        n.invoke(model); // Reset board in the View 
+	        
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

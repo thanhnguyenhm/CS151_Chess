@@ -20,6 +20,11 @@ public class Model {
     	board = new Chessboard();
     }
     
+    public void resetGame() {
+    	startGame();
+    	Move.resetPlayTurn();
+    }
+    
     public void setMove(int start, int end) {
     	move = new Move(board, start, end);
     }

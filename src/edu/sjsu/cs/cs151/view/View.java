@@ -121,6 +121,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     public void resetBoard() {
         frame.remove(layer);
         startGame();
+     // TODO - Use a message, not Move, because View doesn't know about Model package contents (Move)
+        //Move.resetPlayTurn();
         frame.add(layer);
         frame.setVisible(true);
     }

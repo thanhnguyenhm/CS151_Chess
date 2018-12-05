@@ -14,7 +14,7 @@ import edu.sjsu.cs.cs151.view.View;
 public class Controller {
     private List<Valve> valves = new LinkedList<Valve>();
 	private BlockingQueue<Message> queue;
-	private Model model;
+	private static Model model;
 	private static View view;
 	
     /**
@@ -34,7 +34,7 @@ public class Controller {
      * getter for model
      * @return model
      */
-    public Model getModel() {
+    public static Model getModel() {
         return model;
     }
 
