@@ -19,8 +19,7 @@ public class Move {
      * @param start: start position when the mouse is pressed
      * @param end: end position when the mouse is released
      */
-    public Move(Chessboard board, int start, int end) {
-        this.board = board;
+    public Move(int start, int end) {
         this.start = start;
         this.end = end;
         y1 = start/8;
@@ -33,19 +32,21 @@ public class Move {
     * 
     * Check validMove, move piece 
     */
+    // Currently broken...
     //TODO: Add args for piece, start pos, end pos so this method can be passed through MoveValve
+    /* TODO!: Add board.setPiece(i) and board.setPiece(x,y) to handle updates to ChessBoard, use null for no piece
     public boolean tryMove() {
-    	if (board.getCell(start).getPiece().getColor() == playerTurn) { // check if play turn is valid
-			if (board.getCell(start).getPiece().validMove(this)) { // check if move is valid
-				board.getCell(end).setPiece(board.getCell(start).getPiece()); // then place piece in end
-				board.getCell(start).setPiece(null); // and remove piece in start
+    	if (board.getPiece(start).getColor() == playerTurn) { // check if play turn is valid
+			if (board.getPiece(start).validMove(this)) { // check if move is valid
+				board.getPiece(end).setPiece(board.getPiece(start)); // then place piece in end
+				board.getPiece(start).setPiece(null); // and remove piece in start
 
-				if (board.getCell(end).getPiece() instanceof Pawn) // check if pawn has moved TODO: pawn special move
-					((Pawn)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
-				if (board.getCell(end).getPiece() instanceof Rook) // check if rook has moved TODO: for castling
-					((Rook)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
-				if (board.getCell(end).getPiece() instanceof King) // check if king has moved
-					((King)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
+				if (board.getPiece(end) instanceof Pawn) // check if pawn has moved TODO: pawn special move
+					((Pawn)board.getPiece(end)).setHasMoved(true); // type-cast an object
+				if (board.getPiece(end) instanceof Rook) // check if rook has moved TODO: for castling
+					((Rook)board.getPiece(end)).setHasMoved(true); // type-cast an object
+				if (board.getPiece(end) instanceof King) // check if king has moved
+					((King)board.getPiece(end)).setHasMoved(true); // type-cast an object
 
 				// change player turn
 				if (playerTurn == PlayerSide.WHITE) playerTurn = PlayerSide.BLACK;
@@ -53,13 +54,14 @@ public class Move {
 
 				return true;
 			} else {
-				board.getCell(start).setPiece(board.getCell(start).getPiece()); // reset layer
+				board.getPiece(start).setPiece(board.getPiece(start)); // reset layer
 				return false;
 			}
 		}
-		board.getCell(start).setPiece(board.getCell(start).getPiece()); // reset layer
+		board.getPiece(start).setPiece(board.getPiece(start)); // reset layer
 		return false;
     }
+    */
 
 	public int getX1() {
 		return x1;

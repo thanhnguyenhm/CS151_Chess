@@ -1,7 +1,5 @@
 package edu.sjsu.cs.cs151.model;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,8 +8,6 @@ import java.util.Arrays;
  * Knight piece implementation
  */
 public class Knight extends ChessPiece{
-
-	// instance field
 	ArrayList<Integer> listOfValidMoves;
     /**
      * default constructor
@@ -20,11 +16,6 @@ public class Knight extends ChessPiece{
      */
     public Knight(PlayerSide side, int location) {
         super(side, location);
-        if (side == PlayerSide.BLACK)
-        	this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-knight.png"))));
-        else
-        	this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-knight.png"))));
-
         // initialize valid moves
 		if (side == PlayerSide.BLACK)
 			listOfValidMoves = new ArrayList<>(Arrays.asList(location + 15, location + 17));
@@ -48,7 +39,7 @@ public class Knight extends ChessPiece{
 
 		for (int num : moves) {
 			if (num >= 0 && num <= 63) { // check for valid board size
-				ChessPiece currentPiece = m.getBoard().getCell(num).getPiece();
+				ChessPiece currentPiece = m.getBoard().getPiece(num);
 				int x1 = start % 8;
 				int y1 = start / 8;
 				int x2 = num % 8;

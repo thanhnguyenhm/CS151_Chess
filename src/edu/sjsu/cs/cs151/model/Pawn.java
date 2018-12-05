@@ -1,7 +1,5 @@
 package edu.sjsu.cs.cs151.model;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -9,10 +7,7 @@ import java.util.Arrays;
  * Pawn piece implementation
  */
 public class Pawn extends ChessPiece{
-
 	private boolean hasMoved;
-	//private boolean isPromoted;
-	// instance field
 	ArrayList<Integer> listOfValidMoves;
 
 	/**
@@ -21,12 +16,8 @@ public class Pawn extends ChessPiece{
      * @param side Player's color, black or white
      */
     public Pawn(PlayerSide side, int location) {
-    	 super(side, location);
-         if (side == PlayerSide.BLACK)
-        	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-pawn.png"))));
-         else
-        	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-pawn.png"))));
-         hasMoved = false;
+    	super(side, location);
+        hasMoved = false;
 
 		// initialize valid moves
 		if (side == PlayerSide.BLACK)
@@ -57,8 +48,8 @@ public class Pawn extends ChessPiece{
     		if (getColor() == PlayerSide.BLACK) {
 				// Case 0.a: black pawn special move without capture
 				end = start + 16;
-				currentPiece = m.getBoard().getCell(end).getPiece();
-				midPiece = m.getBoard().getCell(start + 8).getPiece();  // pawn can't move two steps if there's a piece in between
+				currentPiece = m.getBoard().getPiece(end);
+				midPiece = m.getBoard().getPiece(start + 8);  // pawn can't move two steps if there's a piece in between
 				if (end >= 0 && end <= 63) {
 					if (currentPiece == null && midPiece == null) listOfValidMoves.add(end);
 				}
@@ -66,8 +57,8 @@ public class Pawn extends ChessPiece{
     		} else {
 				// Case 0.b: white pawn special move without capture
 				end = start - 16;
-				currentPiece = m.getBoard().getCell(end).getPiece();
-				midPiece = m.getBoard().getCell(start - 8).getPiece();
+				currentPiece = m.getBoard().getPiece(end);
+				midPiece = m.getBoard().getPiece(start - 8);
 				if (end >= 0 && end <= 63) {
 					if (currentPiece == null && midPiece == null) listOfValidMoves.add(end);
 				}
@@ -78,7 +69,7 @@ public class Pawn extends ChessPiece{
 		if (getColor() == PlayerSide.BLACK) {
 			// Case 1: black pawn move without capture
 			end = start + 8;
-			currentPiece = m.getBoard().getCell(end).getPiece();
+			currentPiece = m.getBoard().getPiece(end);
 			if (end >= 0 && end <= 63) {
 				if (currentPiece == null) listOfValidMoves.add(end);
 			}
@@ -87,7 +78,7 @@ public class Pawn extends ChessPiece{
 			end = start + 7;
 			x2 = end % 8;
 			y2 = end / 8;
-			currentPiece = m.getBoard().getCell(end).getPiece();
+			currentPiece = m.getBoard().getPiece(end);
 			if (end >= 0 && end <= 63) {
 				if ((x1 - x2 == 1) && (y2 - y1 == 1))
 					if (currentPiece != null && getColor() != currentPiece.getColor()) listOfValidMoves.add(end);
@@ -97,7 +88,7 @@ public class Pawn extends ChessPiece{
 			end = start + 9;
 			x2 = end % 8;
 			y2 = end / 8;
-			currentPiece = m.getBoard().getCell(end).getPiece();
+			currentPiece = m.getBoard().getPiece(end);
 			if (end >= 0 && end <= 63) {
 				if ((x2 - x1 == 1) && (y2 - y1 == 1))
 					if (currentPiece != null && getColor() != currentPiece.getColor()) listOfValidMoves.add(end);
@@ -106,7 +97,7 @@ public class Pawn extends ChessPiece{
 		} else {
 			// Case 1: white pawn move without capture
 			end = start - 8;
-			currentPiece = m.getBoard().getCell(end).getPiece();
+			currentPiece = m.getBoard().getPiece(end);
 			if (end >= 0 && end <= 63) {
 				if (currentPiece == null) listOfValidMoves.add(end);
 			}
@@ -115,7 +106,7 @@ public class Pawn extends ChessPiece{
 			end = start - 9;
 			x2 = end % 8;
 			y2 = end / 8;
-			currentPiece = m.getBoard().getCell(end).getPiece();
+			currentPiece = m.getBoard().getPiece(end);
 			if (end >= 0 && end <= 63) {
 				if ((x1 - x2 == 1) && (y1 - y2 == 1))
 					if (currentPiece != null && getColor() != currentPiece.getColor()) listOfValidMoves.add(end);
@@ -125,7 +116,7 @@ public class Pawn extends ChessPiece{
 			end = start - 7;
 			x2 = end % 8;
 			y2 = end / 8;
-			currentPiece = m.getBoard().getCell(end).getPiece();
+			currentPiece = m.getBoard().getPiece(end);
 			if (end >= 0 && end <= 63) {
 				if ((x2 - x1 == 1) && (y1 - y2 == 1))
 					if (currentPiece != null && getColor() != currentPiece.getColor()) listOfValidMoves.add(end);
@@ -133,8 +124,8 @@ public class Pawn extends ChessPiece{
 		}
 
 		return listOfValidMoves.contains(m.getEnd());
-
-    	
+		
+		
 //    	// Regular rules
 //		if (getColor() == PlayerSide.BLACK) {
 //			if (m.getY1() + 1 == m.getY2())
@@ -171,6 +162,7 @@ public class Pawn extends ChessPiece{
 //		}
 //		return false;
     }
+    
     /**
      * @param hasMoved flags true or false
      */

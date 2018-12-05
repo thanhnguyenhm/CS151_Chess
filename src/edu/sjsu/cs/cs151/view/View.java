@@ -1,14 +1,10 @@
 package edu.sjsu.cs.cs151.view;
 
-import javax.swing.*;
+import java.util.concurrent.BlockingQueue;
 
 import edu.sjsu.cs.cs151.controller.Message;
 import edu.sjsu.cs.cs151.controller.NewGameMessage;
-import edu.sjsu.cs.cs151.game.Game;
-import edu.sjsu.cs.cs151.model.Chessboard;
-import edu.sjsu.cs.cs151.model.Move;
-
-//import com.sun.xml.internal.ws.api.message.Message;
+import edu.sjsu.cs.cs151.controller.MoveMessage;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,32 +12,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.concurrent.BlockingQueue;
-//import java.util.concurrent.BlockingQueue;
+
+import javax.swing.*;
 
 /**
  * View class is a GUI that shows events and collects data from user
  */
 public class View extends JFrame implements MouseListener, MouseMotionListener {
-    private JFrame frame;
+	private static BlockingQueue<Message> queue;
+	private JFrame frame;
 	private JLayeredPane layer;
-	private Chessboard board;
+	private ViewBoard board;
 	private JLabel label; // Temporary image for piece movement
     private JPanel topPanel;
     private JButton reset;
     private JButton quit;
-	private Move move;
 	private static final int SQUARE_SIZE = 75; // Square size
 	private static final int CURSOR_OFFSET = SQUARE_SIZE/2; // Cursor offset is half a cell square
 	private Dimension boardSize = new Dimension(8 * SQUARE_SIZE, 8 * SQUARE_SIZE); // Board is 8x8 squares
-	// Shared BlockingQueue
-	private static BlockingQueue<Message> queue = Game.getQueue(); 
-	
 	private int start, end;
 	
     // View constructor
-    public View() {
-        startGame();
+    public View(BlockingQueue<Message> queue) {
+    	this.queue = queue;
+    	startGame();
 
         // Add action listener to reset button
         //TODO make action listeners put events in queue
@@ -115,7 +109,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         topPanel.add(quit, c);
 
         // add chess board to LayeredPane
-        board = new Chessboard(boardSize);
+        board = new ViewBoard(boardSize);
         layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER);
     }
 
@@ -125,7 +119,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     void resetBoard() {
         frame.remove(layer);
         startGame();
-        Move.resetPlayTurn();
+        // TODO - Use a message, not Move, because View doesn't know about Model package contents (Move)
+        //Move.resetPlayTurn();
         frame.add(layer);
         frame.setVisible(true);
     }
@@ -147,11 +142,10 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         label = null;
         start = (e.getX()/SQUARE_SIZE) + (8*(e.getY()/SQUARE_SIZE)); // Calculate cell index from mouse click
         if (start < 0 || start > 63) return; // Bounds check
-        if (board.getCell(start).getPiece() == null) return;
-        label = board.getCell(start).getPiece().getLabel();
+        label = board.getCell(start).getLabel();
+        if (label == null) return;
         label.setLocation(e.getX() - CURSOR_OFFSET, e.getY() - CURSOR_OFFSET);
         layer.add(label, JLayeredPane.DRAG_LAYER);
-               
     }
     
     @Override
@@ -165,8 +159,11 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         if (label == null) return;
         end = (e.getX()/SQUARE_SIZE) + (8*(e.getY()/SQUARE_SIZE));
         if (end >= 0 && end <= 63) {
-	        move = new Move(board, start, end);
-	        move.tryMove();
+        	try {
+				queue.put(new MoveMessage(start, end));
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}  
         }
         refreshBoard();
     }
@@ -182,13 +179,4 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-
-    public Chessboard getBoard() {
-		return board;
-	}
-
-	public void setBoard(Chessboard board) {
-		this.board = board;
-	}
-
 }

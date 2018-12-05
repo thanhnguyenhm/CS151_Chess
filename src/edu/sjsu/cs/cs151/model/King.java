@@ -1,17 +1,14 @@
 package edu.sjsu.cs.cs151.model;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.util.ArrayList;
 
 /**
  * King piece implementation
  */
 public class King extends ChessPiece{
-
+    private boolean hasMoved;
     private boolean underCheck;
     private boolean underCheckmate;
-    private boolean hasMoved;
 	ArrayList<Integer> listOfValidMoves = new ArrayList<>();
 
     /**
@@ -21,10 +18,9 @@ public class King extends ChessPiece{
      */
     public King(PlayerSide side, int location) {
     	 super(side, location);
-         if (side == PlayerSide.BLACK)
-        	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-king.png"))));
-         else
-        	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-king.png"))));
+         hasMoved = false;
+         underCheck = false;
+         underCheckmate = false;
     }
     
     /**
@@ -46,7 +42,7 @@ public class King extends ChessPiece{
 
 		for (int num : moves) {
 			if (num >= 0 && num <= 63) { // check for valid board size
-				currentPiece = m.getBoard().getCell(num).getPiece();
+				currentPiece = m.getBoard().getPiece(num);
 				int x1 = start % 8;
 				int y1 = start / 8;
 				int x2 = num % 8;

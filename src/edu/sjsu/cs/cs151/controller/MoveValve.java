@@ -1,14 +1,10 @@
 package edu.sjsu.cs.cs151.controller;
 
-public abstract class MoveValve implements Valve {
-	public ValveResponse execute(Message message)
-	{
+public class MoveValve implements Valve {
+	public ValveResponse execute(Message message) {
 		if(message.getClass() != MoveMessage.class)
-		{
 			return ValveResponse.MISS;
-		}
-		// TODO: actions in Model
-		// TODO: actions in View
+		message.ps();
 		return ValveResponse.EXECUTED;
 	}	
 }
