@@ -8,8 +8,6 @@ import edu.sjsu.cs.cs151.controller.MoveMessage;
 import edu.sjsu.cs.cs151.controller.EndGameMessage;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -28,12 +26,15 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     private JPanel topPanel;
     private JButton reset;
     private JButton quit;
-	private static final int SQUARE_SIZE = 75; // Square size
+	private static final int SQUARE_SIZE = 75; 
 	private static final int CURSOR_OFFSET = SQUARE_SIZE/2; // Cursor offset is half a cell square
 	private Dimension boardSize = new Dimension(8 * SQUARE_SIZE, 8 * SQUARE_SIZE); // Board is 8x8 squares
 	private int start, end;
 	
-    // View constructor
+	/**
+	 * View constructor
+	 * @param queue message queue for forwarding messages to Controller
+	 */
     public View(BlockingQueue<Message> queue) {
     	View.queue = queue;
     	startGame();
@@ -89,6 +90,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         c.gridy = 0;
         topPanel.add(reset, c);
 
+        // Quit button
         quit = new JButton("Quit");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
@@ -99,16 +101,20 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         board = new ViewBoard(boardSize);
         layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER);
     }
-    /*
-     * Draws the piece in new position
+    /**
+     * Draws the piece in new position after a move
+     * @param start position
+     * @param end position
      */    
     public void viewMove(int start, int end) {
     	board.getCell(end).setLabel(label);
     	board.getCell(start).setLabel(null);
     	refreshBoard();
     }
-    /*
-     * Redraws the original pieces
+    /**
+     * Resets piece to original position when move request is rejected
+     * @param start position
+     * @param end position
      */
     public void dontMove(int start, int end) {
     	board.getCell(start).setLabel(label);
@@ -165,13 +171,11 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     public void mouseReleased(MouseEvent e) {
         if (label == null) return;
         end = (e.getX()/SQUARE_SIZE) + (8*(e.getY()/SQUARE_SIZE));
-        if (end >= 0 && end <= 63) {
-        	try {
-				queue.put(new MoveMessage(start, end));
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}  
-        }
+        try {
+			queue.put(new MoveMessage(start, end)); // Add attempted move to queue
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}  
     }
 
     @Override

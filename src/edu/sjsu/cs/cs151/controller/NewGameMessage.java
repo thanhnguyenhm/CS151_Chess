@@ -9,7 +9,10 @@ import java.lang.reflect.*;
 */	
 public class NewGameMessage extends Message {
 	private static final long serialVersionUID = 1L;
-
+	/**
+	* NewGameMessage constructor gets the View and Model so they can be reset when  
+	* user starts new game
+	*/
 	public NewGameMessage() {
 
 		View view = Controller.getView();

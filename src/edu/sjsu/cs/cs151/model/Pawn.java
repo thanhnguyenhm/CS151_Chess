@@ -11,9 +11,10 @@ public class Pawn extends ChessPiece{
 	ArrayList<Integer> listOfValidMoves;
 
 	/**
-     * default constructor
+     * Pawn constructor
      *
      * @param side Player's color, black or white
+     * @param location on the board
      */
     public Pawn(PlayerSide side, int location) {
     	super(side, location);
@@ -164,6 +165,7 @@ public class Pawn extends ChessPiece{
     }
     
     /**
+     * Flags whether or not Pawn has moved (for en passant)
      * @param hasMoved flags true or false
      */
 	public void setHasMoved(boolean hasMoved) {

@@ -18,7 +18,7 @@ public class Controller {
 	private static View view;
 	
     /**
-     * constructor
+     * Controller Constructor
      * @param View, Model, and BlockingQueue 
      */
     public Controller(BlockingQueue<Message> queue, Model model, View view) {
@@ -31,7 +31,7 @@ public class Controller {
     }
     
     /**
-     * getter for model
+     * Getter for model
      * @return model
      */
     public static Model getModel() {
@@ -39,7 +39,7 @@ public class Controller {
     }
 
     /**
-     * getter for view
+     * Getter for view
      * @return view
      */
     public static View getView() {

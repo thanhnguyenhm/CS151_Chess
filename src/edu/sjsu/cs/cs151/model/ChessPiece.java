@@ -10,7 +10,7 @@ public abstract class ChessPiece {
     private int location;    
 
     /**
-     * default constructor
+     * Default constructor
      * @param color: color of piece (BLACK, WHITE)
      */
     public ChessPiece(PlayerSide color, int location) {
@@ -19,13 +19,17 @@ public abstract class ChessPiece {
     }
 
     /**
-     * check if a move is valid
+     * Check if a move is valid
      * @return true if it is valid move
      */
     public boolean validMove(Move m) {
         return false;
     }
 
+    /**
+     * Get color of a player's side
+     * @return color
+     */
 	public PlayerSide getColor() {
 		return color;
 	}

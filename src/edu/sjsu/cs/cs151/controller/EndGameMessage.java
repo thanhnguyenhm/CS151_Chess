@@ -11,6 +11,10 @@ import java.lang.reflect.*;
 public class EndGameMessage extends Message {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	* EndGameMessage constructor
+	*/	
+	
 	public EndGameMessage() {	
 	View view = Controller.getView();
     Method m;

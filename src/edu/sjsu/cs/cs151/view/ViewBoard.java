@@ -10,12 +10,17 @@ import java.awt.Color;
 
 
 /**
- * A chess board with 32 black and 32 white cells
+ * A class for viewing the chess board with 32 black and 32 white cells
  */
 public class ViewBoard {
 	private JPanel panel;
 	private Cell[] cell;
 	
+	/**
+	 * ViewBoard constructor that creates 8x8 grid of cells with alternating colors
+	 * Chess piece JLabel images are added to the appropriate piece and location on the board
+	 * @param boardSize (in View)
+	 */
 	public ViewBoard(Dimension boardSize) {
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(8, 8));
@@ -91,14 +96,29 @@ public class ViewBoard {
 		}
 	}
 	
+	/**
+	 * Getter for a panel
+	 * @return panel
+	 */
 	public JPanel getPanel() {
 		return panel;
 	}
 	
+	/**
+	 * Getter for a Cell
+	 * @param i index of cell on board
+	 * @return cell index
+	 */
 	public Cell getCell(int i) {
 		return cell[i];
 	}
 	
+	/**
+	 * Getter for a Cell
+	 * @param x coordinate
+	 * @param y coordinate
+	 * @return cell index
+	 */
 	public Cell getCell(int x, int y) {
 		int i = 8 * y + x;
 		return cell[i];

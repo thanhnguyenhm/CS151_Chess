@@ -1,7 +1,7 @@
 package edu.sjsu.cs.cs151.model;
 
 /**
- * Stores the information of a move
+ * Stores and validates the information of a potential move
  */
 public class Move {
 	private Chessboard board;
@@ -14,7 +14,7 @@ public class Move {
 	private static PlayerSide playerTurn = PlayerSide.WHITE; // white moves first
 
     /**
-     *
+     * Constructor for a Move
      * @param board: current status of the board
      * @param start: start position when the mouse is pressed
      * @param end: end position when the mouse is released
@@ -31,7 +31,8 @@ public class Move {
     
     /**
     * 
-    * Check validMove, move piece 
+    * Check tryMove before moving piece, called in MoveValve move piece
+    * @return whether move is valid 
     */   
     public boolean tryMove() {
     	if (board.getPiece(start).getColor() == playerTurn) { // check if play turn is valid
@@ -46,47 +47,74 @@ public class Move {
 				if (board.getPiece(end) instanceof King) // check if king has moved
 					((King)board.getPiece(end)).setHasMoved(true); // type-cast an object
 
-				// change player turn
+				// change player turn after a successful move
 				if (playerTurn == PlayerSide.WHITE) playerTurn = PlayerSide.BLACK;
 				else playerTurn = PlayerSide.WHITE;
 
 				return true;	
 			}
 		}
-		// TODO: send a message to View to reset layer that has the piece label that we moved
 		return false;
     }
-
+    
+	/**
+	 * Get x1 starting coordinate
+	 * @return x1 position
+	 */
 	public int getX1() {
 		return x1;
 	}
-
+	
+	/**
+	 * Get x2 ending coordinate
+	 * @return x2 position
+	 */
 	public int getX2() {
 		return x2;
 	}
 
+	/**
+	 * Get y1 starting coordinate
+	 * @return y1 position
+	 */
 	public int getY1() {
 		return y1;
 	}
 
+	/**
+	 * Get y1 ending coordinate
+	 * @return y1 position
+	 */
 	public int getY2() {
 		return y2;
 	}
 
+	/**
+	 * Getter for the chess board so that pieces can check for validMoves
+	 * @return board 
+	 */
 	public Chessboard getBoard() {
 		return board;
 	}
 
+	/**
+	 * Get start position
+	 * @return start 
+	 */
 	public int getStart() {
 		return start;
 	}
 
+	/**
+	 * Get end position
+	 * @return end 
+	 */
 	public int getEnd() {
 		return end;
 	}
 
 	/**
-	 * Reset play turn when user click New Game
+	 * Reset player turn when user clicks New Game button - white goes first
 	 */
 	public static void resetPlayTurn() {
     	playerTurn = PlayerSide.WHITE;

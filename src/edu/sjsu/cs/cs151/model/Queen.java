@@ -13,7 +13,7 @@ public class Queen extends ChessPiece{
 	ArrayList<Integer> listOfValidMoves = new ArrayList<>();
 
     /**
-     * default constructor
+     * Default constructor
      *
      * @param side Player's color, black or white
      */

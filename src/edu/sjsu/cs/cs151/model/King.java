@@ -12,9 +12,8 @@ public class King extends ChessPiece{
 	ArrayList<Integer> listOfValidMoves = new ArrayList<>();
 
     /**
-     * construct a King piece
-     *
-     *@param side Player's color, black or white
+     * Construct a King piece
+     * @param side Player's color, black or white
      */
     public King(PlayerSide side, int location) {
     	 super(side, location);

@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Knight extends ChessPiece{
 	ArrayList<Integer> listOfValidMoves;
     /**
-     * default constructor
+     * Default constructor
      *
      * @param side Player's color, black or white
      */
