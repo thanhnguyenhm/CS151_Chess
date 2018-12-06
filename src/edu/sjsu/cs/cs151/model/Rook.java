@@ -118,6 +118,8 @@ public class Rook extends ChessPiece{
 		}
 
 		return listOfValidMoves.contains(m.getEnd());
+		
+		// Alternative logic below saved for reference 
     	
 //    	// Check that the end cell is empty or an opponent's piece
 //    	if (m.getBoard().getCell(m.getEnd())getPiece != null)

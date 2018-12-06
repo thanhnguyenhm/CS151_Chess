@@ -6,6 +6,9 @@ package edu.sjsu.cs.cs151.model;
 public class Chessboard {
 	private ChessPiece[] piece;
 
+    /**
+     * Chess board constructor 
+     */
 	public Chessboard() {
 		piece = new ChessPiece[64];
 		for (int i = 0; i < 64; i++)
@@ -60,15 +63,26 @@ public class Chessboard {
     	}
     }
 
+    /**
+     * Get the chess piece
+     * @param i index 
+     * @return i index
+     */
 	public ChessPiece getPiece(int i) {
 		return piece[i];
 	}
 	
+	// Method for alternative logic saved for reference 
 	public ChessPiece getPiece(int x, int y) {
 		int i = 8 * y + x;
 		return piece[i];
 	}
 	
+    /**
+     * Set the chess piece
+     * @param i index 
+     * @param piece the chess piece
+     */
 	public void setPiece(int i, ChessPiece piece) {
 		this.piece[i] = piece;		
 	}
