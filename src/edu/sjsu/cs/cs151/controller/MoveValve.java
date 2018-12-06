@@ -1,6 +1,10 @@
 package edu.sjsu.cs.cs151.controller;
 
 import edu.sjsu.cs.cs151.model.Model;
+
+/**
+* Handles Valve response to move Message received from View
+*/
 import edu.sjsu.cs.cs151.view.View;
 
 public class MoveValve implements Valve {
