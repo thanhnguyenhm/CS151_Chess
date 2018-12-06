@@ -1,66 +1,63 @@
 package edu.sjsu.cs.cs151.view;
 
-import javax.swing.*;
+import java.util.concurrent.BlockingQueue;
 
 import edu.sjsu.cs.cs151.controller.Message;
 import edu.sjsu.cs.cs151.controller.NewGameMessage;
-import edu.sjsu.cs.cs151.game.Game;
-import edu.sjsu.cs.cs151.model.Chessboard;
-import edu.sjsu.cs.cs151.model.Move;
-
-//import com.sun.xml.internal.ws.api.message.Message;
+import edu.sjsu.cs.cs151.controller.MoveMessage;
+import edu.sjsu.cs.cs151.controller.EndGameMessage;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.concurrent.BlockingQueue;
-//import java.util.concurrent.BlockingQueue;
+
+import javax.swing.*;
 
 /**
- * View class is a GUI that shows events and collects data from user
+ * View class is a GUI that receives input from users and forwards events to the Controller
  */
 public class View extends JFrame implements MouseListener, MouseMotionListener {
-    private JFrame frame;
+	private static BlockingQueue<Message> queue;
+	private JFrame frame;
 	private JLayeredPane layer;
-	private Chessboard board;
+	private ViewBoard board;
 	private JLabel label; // Temporary image for piece movement
     private JPanel topPanel;
     private JButton reset;
     private JButton quit;
-	private Move move;
-	private static final int SQUARE_SIZE = 75; // Square size
+	private static final int SQUARE_SIZE = 75; 
 	private static final int CURSOR_OFFSET = SQUARE_SIZE/2; // Cursor offset is half a cell square
 	private Dimension boardSize = new Dimension(8 * SQUARE_SIZE, 8 * SQUARE_SIZE); // Board is 8x8 squares
-	// Shared BlockingQueue
-	private static BlockingQueue<Message> queue = Game.getQueue(); 
-	
 	private int start, end;
 	
-    // View constructor
-    public View() {
-        startGame();
+	/**
+	 * View constructor
+	 * @param queue message queue for forwarding messages to Controller
+	 */
+    public View(BlockingQueue<Message> queue) {
+    	View.queue = queue;
+    	startGame();
 
         // Add action listener to reset button
-        //TODO make action listeners put events in queue
         reset.addActionListener(e -> {
         	try {
-				queue.put(new NewGameMessage());
-				System.out.println(queue.peek());
+				queue.put(new NewGameMessage()); // Add to queue
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-            resetBoard(); // comment out to see NewGameMessage location
         });
 
         // Add action listener to quit button
         quit.addActionListener(e -> {
-            System.exit(0);
+        	try {
+				queue.put(new EndGameMessage()); // Add to queue
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}     
         });
 
-        // Setup frame---------------------------------------------------------
+        // Setup frame
         frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.add(topPanel, BorderLayout.NORTH);
@@ -72,23 +69,8 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         frame.setVisible(true);
     }
     
- // Trying to put events into shared queue.
-    
-    private class NewGameListener implements ActionListener {
-    	@Override
-    	public void actionPerformed(ActionEvent event) {
-    		try  {
-    			queue.put(new NewGameMessage());
-    			}
-    		catch(InterruptedException exception){
-    			exception.printStackTrace();
-    			}
-    		}
-    	}
-   
-
     /**
-     * Start Game
+     * Start Game: render buttons, add chess board to LayeredPane
      */
     void startGame() {
         // Add components to LayeredPane object
@@ -108,6 +90,7 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         c.gridy = 0;
         topPanel.add(reset, c);
 
+        // Quit button
         quit = new JButton("Quit");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
@@ -115,25 +98,50 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
         topPanel.add(quit, c);
 
         // add chess board to LayeredPane
-        board = new Chessboard(boardSize);
+        board = new ViewBoard(boardSize);
         layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER);
+    }
+    /**
+     * Draws the piece in new position after a move
+     * @param start position
+     * @param end position
+     */    
+    public void viewMove(int start, int end) {
+    	board.getCell(end).setLabel(label);
+    	board.getCell(start).setLabel(null);
+    	refreshBoard();
+    }
+    /**
+     * Resets piece to original position when move request is rejected
+     * @param start position
+     * @param end position
+     */
+    public void dontMove(int start, int end) {
+    	board.getCell(start).setLabel(label);
+    	refreshBoard();
     }
 
     /**
-     * reset everything to the initial state
+     * Reset View to the initial state
      */
-    void resetBoard() {
+    public void resetBoard() {
         frame.remove(layer);
         startGame();
-        Move.resetPlayTurn();
         frame.add(layer);
         frame.setVisible(true);
     }
+    
+    /**
+     * End the game: exit the program
+     */    
+    void endGame() {
+    	System.exit(0);	
+    }
 
     /**
-     * update status of a chess board
+     * Update status of a chess board
      */
-    void refreshBoard() {
+    public void refreshBoard() {
     	layer.removeAll(); //
         layer.add(board.getPanel(), JLayeredPane.DEFAULT_LAYER); // Updating the board
     }
@@ -141,17 +149,16 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
     }
-    //TODO Refactor so that Message events are added to queue and sent through valves to Controller
+
     @Override
     public void mousePressed(MouseEvent e) {
         label = null;
         start = (e.getX()/SQUARE_SIZE) + (8*(e.getY()/SQUARE_SIZE)); // Calculate cell index from mouse click
         if (start < 0 || start > 63) return; // Bounds check
-        if (board.getCell(start).getPiece() == null) return;
-        label = board.getCell(start).getPiece().getLabel();
+        label = board.getCell(start).getLabel();
+        if (label == null) return;
         label.setLocation(e.getX() - CURSOR_OFFSET, e.getY() - CURSOR_OFFSET);
         layer.add(label, JLayeredPane.DRAG_LAYER);
-               
     }
     
     @Override
@@ -164,11 +171,11 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     public void mouseReleased(MouseEvent e) {
         if (label == null) return;
         end = (e.getX()/SQUARE_SIZE) + (8*(e.getY()/SQUARE_SIZE));
-        if (end >= 0 && end <= 63) {
-	        move = new Move(board, start, end);
-	        move.tryMove();
-        }
-        refreshBoard();
+        try {
+			queue.put(new MoveMessage(start, end)); // Add attempted move to queue
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}  
     }
 
     @Override
@@ -182,13 +189,4 @@ public class View extends JFrame implements MouseListener, MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-
-    public Chessboard getBoard() {
-		return board;
-	}
-
-	public void setBoard(Chessboard board) {
-		this.board = board;
-	}
-
 }

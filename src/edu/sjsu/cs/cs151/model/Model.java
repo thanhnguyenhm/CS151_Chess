@@ -1,116 +1,54 @@
 package edu.sjsu.cs.cs151.model;
 
-import edu.sjsu.cs.cs151.game.Game;
+import edu.sjsu.cs.cs151.controller.Message;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Class Model stores all the information about the current state of the game
  */
 public class Model {
-	private Chessboard chessboard;
-	private Cell cell;
-	private Game game;
-	private Player player;
+	private static BlockingQueue<Message> queue;
+	private Chessboard board;
 	private Move move;
-	private ChessPiece chesspiece;
-	private boolean isOver;
-    
-    /**
-     * Initiate a chess game
-     */
-    void initiateGame() {
 
-    }
-
-    /**
-     * Game over when checkmate or stalemate return true
-     */
-    void gameOver() {
-
-    }    
-    
-    /**
-     * A player selects a piece to try and move
-     */
-    void selectPiece() {
-
-    }   
-    
-    /**
-     * Check if a move is valid
-     * @return true if it is valid move
-     */
-    boolean validMove() {
-        return true;
+	/**
+	 * Instantiate queue and chess board in the Model 
+	 * @param queue for Messages sent from View
+	 */
+    public Model(BlockingQueue<Message> queue) {
+    	Model.queue = queue;
+    	board = new Chessboard();
     }
     
-    // TODO Instructor-suggested method. What will it do?
-    /**
-     * Try and execute a proposed move
-     */
-    void tryAndExecuteMove() {
-
-    }    
-
-    /**
-     * Move a piece and update its location
-     */
-    void movePiece() {
-
-    }      
-
-    /**
-     * A piece's ability to capture other piece
-     */
-    void capture() {
-
-    }
-
-    /**
-     * Check if piece is captured
-     * @return true if it is captured
-     */
-    boolean isCaptured() {
-        return true;
+	/**
+	 * Start the game by creating the chess board
+	 */
+    public void startGame() {
+    	board = new Chessboard();
     }
     
-    /**
-     * Check if king is under checkmate
-     * @return true if king is under checkmate
-     */
-    boolean checkForCheckmate() {
-        return true;
+	/**
+	 * Reset game by making new chess board and resetting PlayTurn (white goes first) in Model
+	 */  
+    public void resetGame() {
+    	startGame();
+    	Move.resetPlayTurn();
     }
     
-    /**
-     * Check if king is under "check" by another piece
-     * @return true if king is under "check"
-     */
-    boolean checkForCheck() {
-        return true;
-    }  
-    
-    /**
-     * Check if pawn is eligible for promotion
-     * @return true if pawn is promoted
-     */
-    boolean checkForPromotion() {
-        return true;
+	/**
+	 * Set a new move request that Move will check based on legal moves for piece
+	 * @param start position
+	 * @param end position
+	 */
+    public void setMove(int start, int end) {
+    	move = new Move(board, start, end);
     }
     
-    /**
-     * Check if no additional moves are possible (stalemate)
-     * @return true if player is in stalemate
-     */
-    boolean checkForStalemate() {
-        return true;
-    }    
-    
-    /**
-     * Check if the game is over
-     * @return true if game is over
-     */
-    boolean checkIfGameOver() {
-        return true;
-    }       
-       
+	/**
+	 * Return the move requested
+	 * @return move
+	 */
+    public Move getMove() {
+    	return move;
+    }
 }

@@ -1,7 +1,7 @@
 package edu.sjsu.cs.cs151.model;
 
 /**
- * Stores the information of a move
+ * Stores and validates the information of a potential move
  */
 public class Move {
 	private Chessboard board;
@@ -14,13 +14,13 @@ public class Move {
 	private static PlayerSide playerTurn = PlayerSide.WHITE; // white moves first
 
     /**
-     *
+     * Constructor for a Move
      * @param board: current status of the board
      * @param start: start position when the mouse is pressed
      * @param end: end position when the mouse is released
      */
     public Move(Chessboard board, int start, int end) {
-        this.board = board;
+    	this.board = board;
         this.start = start;
         this.end = end;
         y1 = start/8;
@@ -31,66 +31,90 @@ public class Move {
     
     /**
     * 
-    * Check validMove, move piece 
-    */
-    //TODO: Add args for piece, start pos, end pos so this method can be passed through MoveValve
+    * Check tryMove before moving piece, called in MoveValve move piece
+    * @return whether move is valid 
+    */   
     public boolean tryMove() {
-    	if (board.getCell(start).getPiece().getColor() == playerTurn) { // check if play turn is valid
-			if (board.getCell(start).getPiece().validMove(this)) { // check if move is valid
-				board.getCell(end).setPiece(board.getCell(start).getPiece()); // then place piece in end
-				board.getCell(start).setPiece(null); // and remove piece in start
+    	if (board.getPiece(start).getColor() == playerTurn) { // check if play turn is valid
+			if (board.getPiece(start).validMove(this)) { // check if move is valid
+				board.setPiece(end, board.getPiece(start)); // then place piece in end
+				board.setPiece(start, null); // and remove piece in start
 
-				if (board.getCell(end).getPiece() instanceof Pawn) // check if pawn has moved TODO: pawn special move
-					((Pawn)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
-				if (board.getCell(end).getPiece() instanceof Rook) // check if rook has moved TODO: for castling
-					((Rook)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
-				if (board.getCell(end).getPiece() instanceof King) // check if king has moved
-					((King)board.getCell(end).getPiece()).setHasMoved(true); // type-cast an object
+				if (board.getPiece(end) instanceof Pawn) // check if pawn has moved TODO: pawn special move
+					((Pawn)board.getPiece(end)).setHasMoved(true); // type-cast an object
+				if (board.getPiece(end) instanceof Rook) // check if rook has moved TODO: for castling
+					((Rook)board.getPiece(end)).setHasMoved(true); // type-cast an object
+				if (board.getPiece(end) instanceof King) // check if king has moved
+					((King)board.getPiece(end)).setHasMoved(true); // type-cast an object
 
-				// change player turn
+				// change player turn after a successful move
 				if (playerTurn == PlayerSide.WHITE) playerTurn = PlayerSide.BLACK;
 				else playerTurn = PlayerSide.WHITE;
 
-				return true;
-			} else {
-				board.getCell(start).setPiece(board.getCell(start).getPiece()); // reset layer
-				return false;
+				return true;	
 			}
 		}
-		board.getCell(start).setPiece(board.getCell(start).getPiece()); // reset layer
 		return false;
     }
-
+    
+	/**
+	 * Get x1 starting coordinate
+	 * @return x1 position
+	 */
 	public int getX1() {
 		return x1;
 	}
-
+	
+	/**
+	 * Get x2 ending coordinate
+	 * @return x2 position
+	 */
 	public int getX2() {
 		return x2;
 	}
 
+	/**
+	 * Get y1 starting coordinate
+	 * @return y1 position
+	 */
 	public int getY1() {
 		return y1;
 	}
 
+	/**
+	 * Get y1 ending coordinate
+	 * @return y1 position
+	 */
 	public int getY2() {
 		return y2;
 	}
 
+	/**
+	 * Getter for the chess board so that pieces can check for validMoves
+	 * @return board 
+	 */
 	public Chessboard getBoard() {
 		return board;
 	}
 
+	/**
+	 * Get start position
+	 * @return start 
+	 */
 	public int getStart() {
 		return start;
 	}
 
+	/**
+	 * Get end position
+	 * @return end 
+	 */
 	public int getEnd() {
 		return end;
 	}
 
 	/**
-	 * Reset play turn when user click New Game
+	 * Reset player turn when user clicks New Game button - white goes first
 	 */
 	public static void resetPlayTurn() {
     	playerTurn = PlayerSide.WHITE;

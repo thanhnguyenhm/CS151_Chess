@@ -1,30 +1,23 @@
 package edu.sjsu.cs.cs151.model;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import java.util.ArrayList;
-
 
 /**
  * Rook piece implementation
  */
 public class Rook extends ChessPiece{
-
+	private boolean hasMoved;
 	// instance field
 	ArrayList<Integer> listOfValidMoves = new ArrayList<>();
-	private boolean hasMoved;
 
     /**
-     * default constructor
+     * Default constructor
      *
      * @param side Player's color, black or white
      */
     public Rook(PlayerSide side, int location) {
     	 super(side, location);
-         if (side == PlayerSide.BLACK)
-        	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("black-rook.png"))));
-         else
-        	 this.setLabel(new JLabel(new ImageIcon(getClass().getClassLoader().getResource("white-rook.png"))));                 
+    	 this.hasMoved = false;
     }
     
     /**
@@ -43,7 +36,7 @@ public class Rook extends ChessPiece{
 		ChessPiece piece;
 		boolean isOccupied = false;
 
-		// find all possible moves from current position start
+		// find x, y location of start
 		int start = m.getStart();
 		int x1 = start % 8;
 		int y1 = start / 8;
@@ -62,7 +55,7 @@ public class Rook extends ChessPiece{
 					moves.remove(vMoves.get(i));
 					continue;
 				}
-				piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
+				piece = m.getBoard().getPiece(vMoves.get(i));
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -74,7 +67,7 @@ public class Rook extends ChessPiece{
 					moves.remove(vMoves.get(i));
 					continue;
 				}
-				piece = m.getBoard().getCell(vMoves.get(i)).getPiece();
+				piece = m.getBoard().getPiece(vMoves.get(i));
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -95,7 +88,7 @@ public class Rook extends ChessPiece{
 					moves.remove(hMoves.get(i));
 					continue;
 				}
-				piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
+				piece = m.getBoard().getPiece(hMoves.get(i));
 				if (piece != null) isOccupied = true;
 			}
 			isOccupied = false; // reset
@@ -106,7 +99,7 @@ public class Rook extends ChessPiece{
 					moves.remove(hMoves.get(i));
 					continue;
 				}
-				piece = m.getBoard().getCell(hMoves.get(i)).getPiece();
+				piece = m.getBoard().getPiece(hMoves.get(i));
 				if (piece != null) isOccupied = true;
 			}
 		}
@@ -114,7 +107,7 @@ public class Rook extends ChessPiece{
 		moves.remove(Integer.valueOf(start)); // remove cell that holds the piece itself
 
 		for (int end : moves) {
-			piece = m.getBoard().getCell(end).getPiece();
+			piece = m.getBoard().getPiece(end);
 
 			if (piece == null) {// if cell is not occupied
 				listOfValidMoves.add(end);
@@ -125,9 +118,11 @@ public class Rook extends ChessPiece{
 		}
 
 		return listOfValidMoves.contains(m.getEnd());
+		
+		// Alternative logic below saved for reference 
     	
 //    	// Check that the end cell is empty or an opponent's piece
-//    	if (m.getBoard().getCell(m.getEnd()).getPiece() != null)
+//    	if (m.getBoard().getCell(m.getEnd())getPiece != null)
 //    		if (getColor() == m.getBoard().getCell(m.getEnd()).getPiece().getColor()) return false;
 //
 //    	// Check that any cells between start to end are all empty
